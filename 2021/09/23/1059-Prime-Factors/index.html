@@ -131,15 +131,78 @@
     <div class="section-wrap">
       <div class="container">
         <div class="columns">
-          <main class="main-column"><div class="card card-content">
-  <h1 class="widget-title">友链</h1>
-</div>
-<div class="card card-content friend-card">
-  <ul class="links">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      1059-Prime-Factors
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-09-23T13:06:10.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-09-23</span>
+    </time>
     
-  </ul>
+    <span class="dot"></span>
+    
+    <a href="/categories/刷题/" class="post-meta-link">刷题</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>291 字</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/PAT甲级/" class="post-meta-link">PAT甲级</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<p>这道题要求一个int范围的数的质因数分解式，我们可以先用埃氏筛法求出素数表，然后再在根号n范围找到其质因数，另外，如果有大于根号n的质因数，那必然只有一个。</p>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">factor</span> &#123;</span><br>    <span class="hljs-keyword">int</span> x;<br>    <span class="hljs-keyword">int</span> cnt;<br>&#125;fac[<span class="hljs-number">10</span>];<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> maxn = <span class="hljs-number">100000</span>;<br><br><span class="hljs-keyword">int</span> prime[maxn], pNum = <span class="hljs-number">0</span>;<br><span class="hljs-keyword">bool</span> p[maxn] = &#123; <span class="hljs-literal">false</span> &#125;;<br><span class="hljs-comment">//p[0] = p[1] = true;</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">find_prime</span><span class="hljs-params">()</span> </span>&#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; maxn; i++) &#123;<br>        <span class="hljs-keyword">if</span> (p[i] == <span class="hljs-literal">false</span>) &#123;<br>            prime[pNum++] = i;<br>        &#125;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + i; j &lt; maxn; j += i) &#123;<br>            p[j] = <span class="hljs-literal">true</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>) &#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;1=1&quot;</span>);<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d=&quot;</span>, n);<br>    <span class="hljs-built_in">find_prime</span>();<br>    <span class="hljs-keyword">int</span> sqr = <span class="hljs-built_in">sqrt</span>(n), num = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; pNum &amp;&amp; prime[i] &lt;= sqr; i++) &#123;<br>        <span class="hljs-keyword">if</span> (n % prime[i] == <span class="hljs-number">0</span>) &#123;<br>            fac[num].x = prime[i];<br>            fac[num].cnt = <span class="hljs-number">0</span>;<br>            <span class="hljs-keyword">while</span> (n % prime[i] == <span class="hljs-number">0</span>) &#123;<br>                fac[num].cnt++;<br>                n /= prime[i];<br>            &#125;<br>            num++;<br>            <span class="hljs-keyword">if</span> (n == <span class="hljs-number">1</span>)<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">if</span> (n != <span class="hljs-number">1</span>) &#123;<br>        fac[num].x = n;<br>        fac[num++].cnt = <span class="hljs-number">1</span>;<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; num; i++) &#123;<br>        <span class="hljs-keyword">if</span> (i &gt; <span class="hljs-number">0</span>)<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;*&quot;</span>);<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, fac[i].x);<br>        <span class="hljs-keyword">if</span> (fac[i].cnt &gt; <span class="hljs-number">1</span>) &#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;^%d&quot;</span>, fac[i].cnt);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre>
+
+  </div>
+  <div>
+  
+  <div class="post-note note-warning copyright" style="margin-top: 42px">
+    <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/about">胡澳治</a></p>
+    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/2021/09/23/1059-Prime-Factors/">https://huaozhi.github.io/2021/09/23/1059-Prime-Factors/</a></p>
+    <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+  </div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/09/23/质因数分解/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">质因数分解 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
 </div>
-</main>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text"> 思路</span></a></li></ol>
+</div></main>
           <aside class="left-column">
             
             <div class="card card-author">
@@ -189,6 +252,13 @@
             
             <div class="sticky-tablet">
   
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text"> 思路</span></a></li></ol>
+    </div>
+  </article>
   
   
   <article class="card card-content">
@@ -241,58 +311,16 @@
   </article>
   
   
-  <article class="card card-content widescreen-archive">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">7</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text"> 思路</span></a></li></ol>
+  </article>
   
   
   <article class="card card-content">
@@ -324,53 +352,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">7</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -424,6 +405,13 @@
 
   
   
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
   
 
   

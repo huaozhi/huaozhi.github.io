@@ -131,15 +131,98 @@
     <div class="section-wrap">
       <div class="container">
         <div class="columns">
-          <main class="main-column"><div class="card card-content">
-  <h1 class="widget-title">友链</h1>
-</div>
-<div class="card card-content friend-card">
-  <ul class="links">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      质因数分解
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-09-23T12:07:36.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-09-23</span>
+    </time>
     
-  </ul>
+    <span class="dot"></span>
+    
+    <a href="/categories/数学问题/" class="post-meta-link">数学问题</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>327 字</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/质因数分解/" class="post-meta-link">质因数分解</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h2 id="思路"><a class="markdownIt-Anchor" href="#思路"></a> 思路</h2>
+<p>首先，1既不是质数也不是合数，经常要对题目中的1特判。考虑到 $ 2\times3\times5\times7\times11\times13\times19\times23\times29$ 就已经超过int范围了，所以fac数组只用开到10就可以了。对于一个正整数来说，如果它存在1和本身之外的因数，那这个因数一定在sqrt（n）左右成对出现。于是，对于一个正整数n来说，如果它存在[2,n]范围内的质因数，那么要么这些质因数全部小于等于sqrt（n），要么只存在一个大于sqrt（n）的质因数，其余质因子全部小于等于sqrt（n）。</p>
+<ol>
+<li>枚举1~sqrt(n)范围内的所有质因子p，判断p是否是n的因子,是则进行下列操作。</li>
+</ol>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-keyword">if</span>(n%prime[i] == <span class="hljs-number">0</span>)&#123;<br>    fac[num].x = prime[i];<br>    fac[num].cnt = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">while</span>(n%prime[i] == <span class="hljs-number">0</span>)&#123;<br>        fac[num].cnt++;<br>        n /= prime[i];<br>    &#125;<br>    num++;<br>&#125;<br></code></pre>
+<p>如果p不是质因子则直接跳过。</p>
+<ol start="2">
+<li>如果上述步骤后n仍然大于1，说明n有且仅有1个大于sqrt（n）的质因子（有可能就是n本身），这时需要把这个质因子加入fac数组，其个数为1。</li>
+</ol>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-keyword">if</span>(n != <span class="hljs-number">1</span>)&#123; <span class="hljs-comment">// 无法被根号n以内的质因子除尽</span><br>    fac[num].x = n;<br>    fac[num++].cnt = <span class="hljs-number">1</span>;<br>&#125;<br></code></pre>
+
+  </div>
+  <div>
+  
+  <div class="post-note note-warning copyright" style="margin-top: 42px">
+    <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/about">胡澳治</a></p>
+    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/2021/09/23/%E8%B4%A8%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/">https://huaozhi.github.io/2021/09/23/%E8%B4%A8%E5%9B%A0%E6%95%B0%E5%88%86%E8%A7%A3/</a></p>
+    <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+  </div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2021/09/23/1059-Prime-Factors/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">上一篇</div>
+        
+        <div class="nav-title">1059-Prime-Factors </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/09/23/素数/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">素数 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
 </div>
-</main>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text"> 思路</span></a></li></ol>
+</div></main>
           <aside class="left-column">
             
             <div class="card card-author">
@@ -189,6 +272,13 @@
             
             <div class="sticky-tablet">
   
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text"> 思路</span></a></li></ol>
+    </div>
+  </article>
   
   
   <article class="card card-content">
@@ -241,58 +331,16 @@
   </article>
   
   
-  <article class="card card-content widescreen-archive">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">7</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-text"> 思路</span></a></li></ol>
+  </article>
   
   
   <article class="card card-content">
@@ -324,53 +372,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">7</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -424,6 +425,13 @@
 
   
   
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
   
 
   
