@@ -139,20 +139,37 @@
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-09-24T02:09:24.000Z" style="display: flex; align-items: center;">
+    <time datetime="2021-09-24T02:22:29.000Z" style="display: flex; align-items: center;">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
       <span>2021-09-24</span>
     </time>
     
+    <span class="dot"></span>
+    
+    <a href="/categories/刷题/" class="post-meta-link">刷题</a>
+    
+    
     
     <span class="dot"></span>
-    <span>0 字</span>
+    <span>270 字</span>
     
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/PAT甲级/" class="post-meta-link">PAT甲级</a>
+      
+    </div>
   </div>
   
   </header>
   <div id="section" class="post-content">
-    
+    <h3 id="由后续遍历和中序遍历求层次遍历"><a class="markdownIt-Anchor" href="#由后续遍历和中序遍历求层次遍历"></a> 由后续遍历和中序遍历求层次遍历</h3>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-comment">//由后序遍历和中序遍历求层次遍历</span><br><br>vector&lt;<span class="hljs-keyword">int</span>&gt; postOrder, inOrder;<br><span class="hljs-keyword">int</span> n;<br><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">node</span> &#123;</span><br>    <span class="hljs-keyword">int</span> data;<br>    node* left;<br>    node* right;<br>    <span class="hljs-built_in">node</span>(<span class="hljs-keyword">int</span> x):<span class="hljs-built_in">data</span>(x),<span class="hljs-built_in">left</span>(<span class="hljs-literal">nullptr</span>),<span class="hljs-built_in">right</span>(<span class="hljs-literal">nullptr</span>)&#123;&#125;<br>&#125;;<br><br><span class="hljs-function">node* <span class="hljs-title">createTree</span><span class="hljs-params">(<span class="hljs-keyword">int</span> postL, <span class="hljs-keyword">int</span> postR, <span class="hljs-keyword">int</span> inL, <span class="hljs-keyword">int</span> inR)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (postL &gt; postR)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">nullptr</span>;<br>    <span class="hljs-keyword">int</span> data = postOrder[postR];<br>    node* root = <span class="hljs-keyword">new</span> <span class="hljs-built_in">node</span>(data);<br>    <span class="hljs-keyword">int</span> index;<br>    <span class="hljs-keyword">for</span> (index = inL; index &lt; n; index++) &#123;<br>        <span class="hljs-keyword">if</span> (inOrder[index] == data) &#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">int</span> leftNodes = index - inL;<br>    root-&gt;left = <span class="hljs-built_in">createTree</span>(postL, postL + leftNodes - <span class="hljs-number">1</span>, inL, index - <span class="hljs-number">1</span>);<br>    root-&gt;right = <span class="hljs-built_in">createTree</span>(postL + leftNodes, postR - <span class="hljs-number">1</span>, index + <span class="hljs-number">1</span>, inR);<br>    <span class="hljs-keyword">return</span> root;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    postOrder.<span class="hljs-built_in">resize</span>(n);<br>    inOrder.<span class="hljs-built_in">resize</span>(n);<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;postOrder[i]);<br>    &#125;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;inOrder[i]);<br>    &#125;<br>    node* root = <span class="hljs-built_in">createTree</span>(<span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, n - <span class="hljs-number">1</span>);<br>    queue&lt;node*&gt; q;<br>    q.<span class="hljs-built_in">push</span>(root);<br>    <span class="hljs-keyword">int</span> flag = <span class="hljs-number">1</span>;<br>    <span class="hljs-keyword">while</span> (!q.<span class="hljs-built_in">empty</span>()) &#123;<br>        node* nd = q.<span class="hljs-built_in">front</span>();<br>        q.<span class="hljs-built_in">pop</span>();<br>        <span class="hljs-keyword">if</span> (flag == <span class="hljs-number">1</span>) &#123;<br>            flag = <span class="hljs-number">0</span>;<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; &quot;</span>);<br>        &#125;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, nd-&gt;data);<br>        <span class="hljs-keyword">if</span> (nd-&gt;left != <span class="hljs-literal">nullptr</span>) &#123;<br>            q.<span class="hljs-built_in">push</span>(nd-&gt;left);<br>        &#125;<br>        <span class="hljs-keyword">if</span> (nd-&gt;right != <span class="hljs-literal">nullptr</span>) &#123;<br>            q.<span class="hljs-built_in">push</span>(nd-&gt;right);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre>
+
   </div>
   <div>
   
@@ -183,7 +200,7 @@
 
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B1%E5%90%8E%E7%BB%AD%E9%81%8D%E5%8E%86%E5%92%8C%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%B1%82%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="toc-text"> 由后续遍历和中序遍历求层次遍历</span></a></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -238,7 +255,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B1%E5%90%8E%E7%BB%AD%E9%81%8D%E5%8E%86%E5%92%8C%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%B1%82%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="toc-text"> 由后续遍历和中序遍历求层次遍历</span></a></li></ol>
     </div>
   </article>
   
@@ -258,7 +275,7 @@
       <a href="/categories/刷题">
         <div class="categories-list-item">
           刷题
-          <span class="categories-list-item-badge">3</span>
+          <span class="categories-list-item-badge">4</span>
         </div>
       </a>
     
@@ -280,7 +297,7 @@
     
     <a href="\tags\PAT甲级" title="PAT甲级"><div class="tags-list-item">PAT甲级</div></a>
     
-    <a href="\tags\大顶堆, 排序" title="大顶堆, 排序"><div class="tags-list-item">大顶堆, 排序</div></a>
+    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
     
     <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
     
@@ -303,7 +320,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B1%E5%90%8E%E7%BB%AD%E9%81%8D%E5%8E%86%E5%92%8C%E4%B8%AD%E5%BA%8F%E9%81%8D%E5%8E%86%E6%B1%82%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86"><span class="toc-text"> 由后续遍历和中序遍历求层次遍历</span></a></li></ol>
   </article>
   
   
