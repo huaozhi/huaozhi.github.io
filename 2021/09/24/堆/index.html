@@ -135,23 +135,23 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      1107-Social-Clusters
+      堆
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-09-23T03:21:31.000Z" style="display: flex; align-items: center;">
+    <time datetime="2021-09-24T01:02:03.000Z" style="display: flex; align-items: center;">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
-      <span>2021-09-23</span>
+      <span>2021-09-24</span>
     </time>
     
     <span class="dot"></span>
     
-    <a href="/categories/刷题/" class="post-meta-link">刷题</a>
+    <a href="/categories/数据结构/" class="post-meta-link">数据结构</a>
     
     
     
     <span class="dot"></span>
-    <span>264 字</span>
+    <span>300 字</span>
     
   </div>
   
@@ -160,22 +160,31 @@
       <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
       
       
-        <a href="/tags/PAT甲级/" class="post-meta-link">PAT甲级</a>
+        <a href="/tags/大顶堆-排序/" class="post-meta-link">大顶堆, 排序</a>
       
     </div>
   </div>
   
   </header>
   <div id="section" class="post-content">
-    <h1 id="1107-social-clusters"><a class="markdownIt-Anchor" href="#1107-social-clusters"></a> 1107-Social-Clusters</h1>
-<pre class="highlight"><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">int</span> father[<span class="hljs-number">1010</span>], isRoot[<span class="hljs-number">1010</span>];<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">findFather</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> x == father[x] ? x : <span class="hljs-built_in">findFather</span>(father[x]);<br>&#125;<br><br><span class="hljs-comment">//路径压缩</span><br><span class="hljs-comment">// int findFather(int x)&#123;</span><br><span class="hljs-comment">//     int a = x;</span><br><span class="hljs-comment">//     while(x != father[x])&#123;</span><br><span class="hljs-comment">//         x = father[x];</span><br><span class="hljs-comment">//     &#125;</span><br><span class="hljs-comment">//     while(a != father[a])&#123;</span><br><span class="hljs-comment">//         int z = a;</span><br><span class="hljs-comment">//         a = father[a];</span><br><span class="hljs-comment">//         father[z] = x;</span><br><span class="hljs-comment">//     &#125;</span><br><span class="hljs-comment">//     return x;</span><br><span class="hljs-comment">// &#125;</span><br><br><br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>&#123;<br>    <span class="hljs-keyword">int</span> faA = <span class="hljs-built_in">findFather</span>(a);<br>    <span class="hljs-keyword">int</span> faB = <span class="hljs-built_in">findFather</span>(b);<br>    <span class="hljs-keyword">if</span>(faA != faB)&#123;<br>        father[faA] = faB; <br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">cmp</span><span class="hljs-params">(<span class="hljs-keyword">int</span> a, <span class="hljs-keyword">int</span> b)</span></span>&#123;<br>    <span class="hljs-keyword">return</span> a &gt; b;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">init</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>        father[i] = i;<br>        isRoot[i] = <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span><br><span class="hljs-function"></span>&#123;<br>    <span class="hljs-keyword">int</span> n,k,h,course[<span class="hljs-number">1010</span>] = &#123;<span class="hljs-number">0</span>&#125;;<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;n);<br>    <span class="hljs-built_in">init</span>(n);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>        <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d:&quot;</span>, &amp;k);<br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; k; j++)&#123;<br>            <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%d&quot;</span>, &amp;h);<br>            <span class="hljs-keyword">if</span>(course[h] == <span class="hljs-number">0</span>)&#123;<br>                course[h] = i;<br>            &#125;<br>            <span class="hljs-built_in">Union</span>(i, course[h]);<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>        isRoot[<span class="hljs-built_in">findFather</span>(i)]++;<br>    &#125;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= n; i++)&#123;<br>        <span class="hljs-keyword">if</span>(isRoot[i] != <span class="hljs-number">0</span>)&#123;<br>            ans++;<br>        &#125;<br>    &#125;<br>    <span class="hljs-built_in">sort</span>(isRoot+<span class="hljs-number">1</span>,isRoot+n+<span class="hljs-number">1</span>,cmp);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d\n&quot;</span>, ans);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">1</span>; i &lt;= ans; i++)&#123;<br>        <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%d&quot;</span>, isRoot[i]);<br>        <span class="hljs-keyword">if</span>(i != ans)<br>            <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot; &quot;</span>);<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre>
+    <h2 id="定义堆"><a class="markdownIt-Anchor" href="#定义堆"></a> 定义堆</h2>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> maxn = <span class="hljs-number">100</span>;<br><span class="hljs-comment">// heap为堆， n为元素个数</span><br><span class="hljs-keyword">int</span> heap[maxn], n = <span class="hljs-number">10</span>;<br><span class="hljs-comment">// 数组下标从1开始</span><br></code></pre>
+<h2 id="向下调整代码"><a class="markdownIt-Anchor" href="#向下调整代码"></a> 向下调整代码</h2>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-comment">// low为要调整的结点的数组下标，high为堆的最后一个元素的下标</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">downAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span></span>&#123;<br>    <span class="hljs-keyword">int</span> i = low, j = i*<span class="hljs-number">2</span>; <span class="hljs-comment">// i指向当前结点， j指向左子树</span><br>    <span class="hljs-keyword">while</span>(j &lt;= high)&#123;<br>        <span class="hljs-keyword">if</span>(j+<span class="hljs-number">1</span> &lt;= high &amp;&amp; heap[j+<span class="hljs-number">1</span>] &gt; heap[j])&#123;<br>            j = j+<span class="hljs-number">1</span>; <span class="hljs-comment">// j现在指向左右子树最大者</span><br>        &#125;<br>        <span class="hljs-keyword">if</span>(heap[j] &gt; heap[i])&#123;<br>            <span class="hljs-built_in">swap</span>(heap[i], heap[j]);<br>            i = j;<br>            j = i*<span class="hljs-number">2</span>;<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre>
+<h2 id="建堆"><a class="markdownIt-Anchor" href="#建堆"></a> 建堆</h2>
+<p>假设堆中元素有n个，那么非叶节点数为int(n/2)个，从后往前向下调整得到堆。</p>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">createHeap</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = n/<span class="hljs-number">2</span>; i &gt;= <span class="hljs-number">1</span>; i--)&#123;<br>        <span class="hljs-built_in">downAdjust</span>(i,n);<br>    &#125;<br>&#125;<br></code></pre>
+<h2 id="删除堆顶元素"><a class="markdownIt-Anchor" href="#删除堆顶元素"></a> 删除堆顶元素</h2>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">deleteTop</span><span class="hljs-params">()</span></span>&#123;<br>    heap[<span class="hljs-number">1</span>] = heap[n--];<br>    <span class="hljs-built_in">downAdjust</span>(<span class="hljs-number">1</span>,n);<br>&#125;<br><span class="hljs-comment">//堆排序可建立在该基础</span><br></code></pre>
+<h2 id="添加元素"><a class="markdownIt-Anchor" href="#添加元素"></a> 添加元素</h2>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-comment">// 向上调整</span><br><span class="hljs-comment">// low为1，high为要调整的结点下标</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">upAdjust</span><span class="hljs-params">(<span class="hljs-keyword">int</span> low, <span class="hljs-keyword">int</span> high)</span></span>&#123;<br>    <span class="hljs-keyword">int</span> i = high; j = i/<span class="hljs-number">2</span>;<br>    <span class="hljs-keyword">while</span>(low &lt;= j)&#123;<br>        <span class="hljs-keyword">if</span>(heap[i] &gt; heap[j])&#123;<br>            <span class="hljs-built_in">swap</span>(heap[i], heap[j]);<br>            i = j;<br>            j = i/<span class="hljs-number">2</span>;<br>    	&#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">break</span>;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 添加元素</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>&#123;<br>    heap[++n] = x;<br>    <span class="hljs-built_in">upAdjust</span>(<span class="hljs-number">1</span>, n);<br>&#125;<br></code></pre>
 
   </div>
   <div>
   
   <div class="post-note note-warning copyright" style="margin-top: 42px">
     <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/about">胡澳治</a></p>
-    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/2021/09/23/1107-Social-Clusters/">https://huaozhi.github.io/2021/09/23/1107-Social-Clusters/</a></p>
+    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/2021/09/24/%E5%A0%86/">https://huaozhi.github.io/2021/09/24/%E5%A0%86/</a></p>
     <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
   </div>
   
@@ -183,25 +192,13 @@
 </article>
 <div class="nav">
   
-  <div class="nav-item-prev">
-    <a href="/2021/09/23/1069-The-Black-Hole-of-Numbers/" class="nav-link">
-      <i class="iconfont icon-left nav-prev-icon"></i>
-      <div>
-        <div class="nav-label">上一篇</div>
-        
-        <div class="nav-title">1069_The_Black_Hole_of_Numbers </div>
-        
-      </div>
-    </a>
-  </div>
-  
   
   <div class="nav-item-next">
-    <a href="/2021/09/23/并查集/" class="nav-link">
+    <a href="/2021/09/23/1059-Prime-Factors/" class="nav-link">
       <div>
         <div class="nav-label">下一篇</div>
         
-        <div class="nav-title">并查集 </div>
+        <div class="nav-title">1059-Prime-Factors </div>
         
       </div>
       <i class="iconfont icon-right nav-next-icon"></i>
@@ -212,7 +209,7 @@
 
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1107-social-clusters"><span class="toc-text"> 1107-Social-Clusters</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%A0%86"><span class="toc-text"> 定义堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E4%B8%8B%E8%B0%83%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-text"> 向下调整代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E5%A0%86"><span class="toc-text"> 建堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%A0%86%E9%A1%B6%E5%85%83%E7%B4%A0"><span class="toc-text"> 删除堆顶元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-text"> 添加元素</span></a></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -267,7 +264,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1107-social-clusters"><span class="toc-text"> 1107-Social-Clusters</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%A0%86"><span class="toc-text"> 定义堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E4%B8%8B%E8%B0%83%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-text"> 向下调整代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E5%A0%86"><span class="toc-text"> 建堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%A0%86%E9%A1%B6%E5%85%83%E7%B4%A0"><span class="toc-text"> 删除堆顶元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-text"> 添加元素</span></a></li></ol>
     </div>
   </article>
   
@@ -332,7 +329,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1107-social-clusters"><span class="toc-text"> 1107-Social-Clusters</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E5%A0%86"><span class="toc-text"> 定义堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%91%E4%B8%8B%E8%B0%83%E6%95%B4%E4%BB%A3%E7%A0%81"><span class="toc-text"> 向下调整代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%BA%E5%A0%86"><span class="toc-text"> 建堆</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E5%A0%86%E9%A1%B6%E5%85%83%E7%B4%A0"><span class="toc-text"> 删除堆顶元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0"><span class="toc-text"> 添加元素</span></a></li></ol>
   </article>
   
   
