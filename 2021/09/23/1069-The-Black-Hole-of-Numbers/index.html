@@ -80,6 +80,9 @@
   
   
   
+  <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
   
   
 <link rel="stylesheet" href="/css/main.css">
@@ -173,12 +176,6 @@
   </div>
   <div>
   
-  <div class="post-note note-warning copyright" style="margin-top: 42px">
-    <p><span style="font-weight: bold;">作者：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/about">胡澳治</a></p>
-    <p><span style="font-weight: bold;">文章链接：</span><a target="_blank" rel="nofollow noopener noreferrer" href="https://huaozhi.github.io/2021/09/23/1069-The-Black-Hole-of-Numbers/">https://huaozhi.github.io/2021/09/23/1069-The-Black-Hole-of-Numbers/</a></p>
-    <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
-  </div>
-  
   </div>
 </article>
 <div class="nav">
@@ -210,9 +207,14 @@
   
 </div>
 
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
+  
+</div>
+
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1069_the_black_hole_of_numbers"><span class="toc-text"> 1069_The_Black_Hole_of_Numbers</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1069_the_black_hole_of_numbers"><span class="toc-number">1.</span> <span class="toc-text"> 1069_The_Black_Hole_of_Numbers</span></a></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -267,7 +269,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1069_the_black_hole_of_numbers"><span class="toc-text"> 1069_The_Black_Hole_of_Numbers</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1069_the_black_hole_of_numbers"><span class="toc-number">1.</span> <span class="toc-text"> 1069_The_Black_Hole_of_Numbers</span></a></li></ol>
     </div>
   </article>
   
@@ -343,7 +345,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1069_the_black_hole_of_numbers"><span class="toc-text"> 1069_The_Black_Hole_of_Numbers</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1069_the_black_hole_of_numbers"><span class="toc-number">1.</span> <span class="toc-text"> 1069_The_Black_Hole_of_Numbers</span></a></li></ol>
   </article>
   
   
@@ -413,6 +415,19 @@
     
     
     
+      <div class="footer-dsc">
+        
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+        
+        <span>&nbsp;|&nbsp;</span>
+        
+        
+        本站总访客数<span id="busuanzi_value_site_uv"></span>次
+        
+      </div>
+      
+    
 </footer>
   <a role="button" id="scrollbutton" class="basebutton" >
   <i class="iconfont icon-arrowleft button-icon"></i>
@@ -461,6 +476,8 @@
   
 <script src="/js/main.js"></script>
 
+  
+  <script>loadScript("/js/lib/busuanzi.min.js")</script>
   
   
   <script>
