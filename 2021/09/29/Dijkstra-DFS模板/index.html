@@ -134,15 +134,76 @@
     <div class="section-wrap">
       <div class="container">
         <div class="columns">
-          <main class="main-column"><div class="card card-content">
-  <h1 class="widget-title">友链</h1>
-</div>
-<div class="card card-content friend-card">
-  <ul class="links">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Dijkstra+DFS模板
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-09-29T15:30:37.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-09-29</span>
+    </time>
     
-  </ul>
+    <span class="dot"></span>
+    
+    <a href="/categories/数据结构/" class="post-meta-link">数据结构</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>390 字</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/最短路径/" class="post-meta-link">最短路径</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h2 id="代码"><a class="markdownIt-Anchor" href="#代码"></a> 代码</h2>
+<pre class="highlight"><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> _CRT_SECURE_NO_WARNINGS</span><br><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;bits/stdc++.h&gt;</span></span><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> maxn = <span class="hljs-number">10000</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">int</span> INF = <span class="hljs-number">1e9</span>;<br><span class="hljs-keyword">int</span> n;<br><span class="hljs-comment">// dijkstra+DFS模板</span><br><br><span class="hljs-comment">// 一、使用dijkstra记录所有最短路径</span><br><br>vector&lt;<span class="hljs-keyword">int</span>&gt; pre[maxn]; <span class="hljs-comment">// 记录结点v的路径前的结点pre[v],可以不止一个</span><br><span class="hljs-keyword">int</span> vis[maxn];<br><span class="hljs-keyword">int</span> d[maxn]; <span class="hljs-comment">// 记录起点到v的最短距离d[v]</span><br><br><span class="hljs-keyword">int</span> G[maxn][maxn];<br><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">Dijkstra</span><span class="hljs-params">(<span class="hljs-keyword">int</span> s)</span> </span>&#123;<br>    <span class="hljs-built_in">fill</span>(d, d + maxn, INF);<br>    d[s] = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        <span class="hljs-keyword">int</span> u = <span class="hljs-number">-1</span>, min = INF;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;<br>            <span class="hljs-keyword">if</span> (vis[j] == <span class="hljs-number">0</span> &amp;&amp; d[j] &lt; min) &#123; <span class="hljs-comment">// 注意vis[j] == 0要未加入集合的最小值及其下标</span><br>                min = d[j];<br>                u = j;<br>            &#125;<br>        &#125;<br>        <span class="hljs-keyword">if</span> (u == <span class="hljs-number">-1</span>)<br>            <span class="hljs-keyword">return</span>;<br>        vis[u] = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; n; j++) &#123;<br>            <span class="hljs-keyword">if</span> (vis[j] == <span class="hljs-number">0</span> &amp;&amp; G[u][j] != INF) &#123;<br>                <span class="hljs-keyword">if</span> (d[u] + G[u][j] &lt; d[j]) &#123;<br>                    d[j] = d[u] + G[u][j];<br>                    pre[j].<span class="hljs-built_in">clear</span>();<br>                    pre[j].<span class="hljs-built_in">push_back</span>(u);<br>                &#125;<br>                <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (d[u] + G[u][j] == d[j]) &#123;<br>                    pre[j].<span class="hljs-built_in">push_back</span>(u);<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 二、遍历所有最短路径，找出一条使第二标尺最优的路径</span><br><br><span class="hljs-keyword">int</span> optValue; <span class="hljs-comment">//第二标尺最优值</span><br>vector&lt;<span class="hljs-keyword">int</span>&gt; path, temp_path; <span class="hljs-comment">//最优路径，临时路径</span><br><span class="hljs-keyword">int</span> s; <span class="hljs-comment">//路径起点</span><br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">DFS</span><span class="hljs-params">(<span class="hljs-keyword">int</span> v)</span> </span>&#123;<br>    <span class="hljs-keyword">if</span> (v == s) &#123; <span class="hljs-comment">// 递归边界</span><br>        temp_path.<span class="hljs-built_in">push_back</span>(v);<br>        <span class="hljs-keyword">int</span> value;<br>        <span class="hljs-comment">//这一步求出tmep_path的第二标尺最优值</span><br>        <span class="hljs-comment">//...</span><br>        <span class="hljs-keyword">if</span> (value 优于 optValue) &#123;<br>            path = temp_path;<br>            optValue = value;<br>        &#125;<br>        temp_path.<span class="hljs-built_in">pop_back</span>();<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>    temp_path.<span class="hljs-built_in">push_back</span>(v); <span class="hljs-comment">// 加入自己到路径</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; pre[v].<span class="hljs-built_in">size</span>(); i++) &#123; <span class="hljs-comment">// 遍历结点v的前结点，深搜</span><br>        <span class="hljs-built_in">DFS</span>(pre[v][i]);<br>    &#125;<br>    temp_path.<span class="hljs-built_in">pop_back</span>(); <span class="hljs-comment">// 自己退出路径，退出这层深搜时可以不干扰其他分支</span><br>&#125;<br></code></pre>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/09/28/平衡二叉树模板/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">平衡二叉树模板 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
 </div>
-</main>
+
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text"> 代码</span></a></li></ol>
+</div></main>
           <aside class="left-column">
             
             <div class="card card-author">
@@ -193,6 +254,13 @@
             <div class="sticky-tablet">
   
   
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text"> 代码</span></a></li></ol>
+    </div>
+  </article>
+  
   
   <article class="card card-content">
     <div class="categories-card">
@@ -236,107 +304,41 @@
   <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
   <div class="tags-list">
     
-    <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
-    
     <a href="\tags\并查集" title="并查集"><div class="tags-list-item">并查集</div></a>
-    
-    <a href="\tags\最短路径" title="最短路径"><div class="tags-list-item">最短路径</div></a>
-    
-    <a href="\tags\AVL树" title="AVL树"><div class="tags-list-item">AVL树</div></a>
-    
-    <a href="\tags\动态规划" title="动态规划"><div class="tags-list-item">动态规划</div></a>
-    
-    <a href="\tags\数学问题" title="数学问题"><div class="tags-list-item">数学问题</div></a>
-    
-    <a href="\tags\树的遍历" title="树的遍历"><div class="tags-list-item">树的遍历</div></a>
-    
-    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
-    
-    <a href="\tags\素数判断" title="素数判断"><div class="tags-list-item">素数判断</div></a>
     
     <a href="\tags\最大公约数" title="最大公约数"><div class="tags-list-item">最大公约数</div></a>
     
-  </div>
-</div>
-  </article>
-  
-  
-  <article class="card card-content widescreen-archive">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
+    <a href="\tags\素数判断" title="素数判断"><div class="tags-list-item">素数判断</div></a>
     
+    <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
     
+    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
     
-      
-        
-        
-        
-      
+    <a href="\tags\树的遍历" title="树的遍历"><div class="tags-list-item">树的遍历</div></a>
     
-      
-        
-      
+    <a href="\tags\数学问题" title="数学问题"><div class="tags-list-item">数学问题</div></a>
     
-      
-        
-      
+    <a href="\tags\动态规划" title="动态规划"><div class="tags-list-item">动态规划</div></a>
     
-      
-        
-      
+    <a href="\tags\AVL树" title="AVL树"><div class="tags-list-item">AVL树</div></a>
     
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">13</span>
-      </a>
+    <a href="\tags\最短路径" title="最短路径"><div class="tags-list-item">最短路径</div></a>
     
   </div>
 </div>
   </article>
+  
   
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.</span> <span class="toc-text"> 代码</span></a></li></ol>
+  </article>
   
   
   <article class="card card-content">
@@ -368,77 +370,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">13</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -505,6 +436,13 @@
 
   
   
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
   
 
   
