@@ -134,35 +134,151 @@
     <div class="section-wrap">
       <div class="container">
         <div class="columns">
-          <main class="main-column"><div class="card card-content tag-page-card">
-  <div class="tags-page-title">标签&nbsp-&nbsp并查集</div>
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      git_note1
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-10-21T11:12:30.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-10-21</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/git/" class="post-meta-link">git</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>601 字</span>
+    
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h1 id="git"><a class="markdownIt-Anchor" href="#git"></a> Git</h1>
+<h3 id="git基础"><a class="markdownIt-Anchor" href="#git基础"></a> git基础</h3>
+<ul>
+<li>直接记录快照，而非差异比较</li>
+<li>近乎所有操作都在本地执行</li>
+<li>时刻保存数据完整性</li>
+<li>多数操作仅添加数据</li>
+<li>文件的三种状态
+<ul>
+<li>已修改（modified）</li>
+<li>已暂存（stagesd）</li>
+<li>已提交（commited）</li>
+</ul>
+</li>
+</ul>
+<h3 id="git状态"><a class="markdownIt-Anchor" href="#git状态"></a> git状态</h3>
+<p><img src="https://i.loli.net/2021/10/21/Z4b3VrDdMkxULv6.png" alt="image-20211021193615956" / srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://i.loli.net/2021/10/21/Z4b3VrDdMkxULv6.png" class="lozad post-image"></p>
+<ul>
+<li>
+<p>git文件</p>
+<p>已被git版本库管理的文件</p>
+</li>
+<li>
+<p>已修改</p>
+<p>在工作目录修改git文件</p>
+</li>
+<li>
+<p>已暂存</p>
+<p>对已修改的文件进行git暂存操作，将修改存入暂存区</p>
+</li>
+<li>
+<p>已提交</p>
+<p>将已暂存的修改进行git提交操作，将修改存入版本库</p>
+</li>
+</ul>
+<p><img src="https://i.loli.net/2021/10/21/TKy28m6dwpViEv4.png" alt="image-20211021194244854" / srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://i.loli.net/2021/10/21/TKy28m6dwpViEv4.png" class="lozad post-image"></p>
+<h3 id="git重要命令操练"><a class="markdownIt-Anchor" href="#git重要命令操练"></a> git重要命令操练</h3>
+<ul>
+<li>获得版本库
+<ul>
+<li>git init</li>
+<li>git clone</li>
+</ul>
+</li>
+<li>版本管理
+<ul>
+<li>git add</li>
+<li>git commit</li>
+<li>git rm</li>
+</ul>
+</li>
+<li>查看信息
+<ul>
+<li>git help</li>
+<li>git log</li>
+<li>git diff</li>
+</ul>
+</li>
+<li>远程协作
+<ul>
+<li>git pull</li>
+<li>git push</li>
+</ul>
+</li>
+</ul>
+<pre class="highlight"><code class="hljs bash">/etc/gitconfig ==&gt; --system<br>~/.gitconfig ==&gt; --global<br>.git ==&gt; --<span class="hljs-built_in">local</span><br><span class="hljs-comment"># priority increses</span><br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">修改后删除修改 git restore filename / git checkout -- filename<br>暂存后恢复到上一次提交状态 git restore --staged filename / git reset HEAD<br>git reset --hard HEAD 是将工作区、暂存区和上一次提交保持一致<br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">git branch 查看分支，*号指示当前分支<br>git branch branch_name， 创建新分支【branch_name】<br>git checkout branch_name，转到branch_name分支<br>git checkout -，转到上一个分支<br>cd -， 转到上一个目录<br>git branch -d branch_name, 删除分支branch_name<br>git branch -D branch_name, 强制删除branch_name<br>git checkout -b branch_name, 创建新分支branch_name并转到branch_name,相当于git branch branch_name &amp;&amp; git checkout branch_name<br>git merge branch_name, 将branch_name分支和当前分支合并<br><br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">HEAD指向当前分支<br>master指向提交<br>git commit -am &quot;&quot; ， 将工作区的修改全部提交，相当于git add . &amp;&amp; git commit - m &quot;&quot;<br>git log --graph --abbrev-commit，将commit id简写<br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">git branch -m branch_name new_branch_name,分支改名<br>git stash 临时存储当前的修改，状态变为上一次干净的提交,即保持现场<br>git stash save &#x27;&#x27;<br>git stash pop，恢复的同时将stash内容删除<br>git stash apply, stash内容不删除，需通过git stash drop stash@&#123;0&#125;手动删除<br>git stash<br>git stash list<br>git stash apply stash@&#123;0&#125;<br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">git tag v1.0 添加标签<br>git tag -a v2.0 -m &quot;&quot; <br>git tag -d tag_name 删除tag<br>git tag -l &quot;&quot; 查找标签<br>git blame file_name 查看文件的修改过程 <br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">diff file_a file_b<br>diff -u file_a file_b<br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">git diff 展示暂存区和工作区的区别<br>git diff HEAD 最新的提交和工作区的区别<br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">git diff --cached [commit_id] 比较最新提交和暂存区的区别<br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">push 推送<br>pull 拉取，同时会执行merge<br>pull == fetch + merge<br></code></pre>
+<pre class="highlight"><code class="hljs plaintext">GitHub GitLab<br></code></pre>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2021/10/28/7-管道、环境变量与常用命令/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">上一篇</div>
+        
+        <div class="nav-title">7.管道、环境变量与常用命令 </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/09/29/Dijkstra-DFS模板/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">Dijkstra+DFS模板 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
 </div>
-<div class="archive-timeline">
+
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
   
-  
-    
-      <div class="archive-timeline-tag"><span>2021</span></div>
-      
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2021-09-23</div>
-          <div class="archive-timeline-post-content"><a href="/2021/09/23/1107-Social-Clusters/" class="archive-timeline-post-item">1107-Social-Clusters</a></div>
-        </div>
-      </div>
-    </div>
-  
-    
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2021-09-23</div>
-          <div class="archive-timeline-post-content"><a href="/2021/09/23/并查集/" class="archive-timeline-post-item">并查集</a></div>
-        </div>
-      </div>
-    </div>
-  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git"><span class="toc-number">1.</span> <span class="toc-text"> Git</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E5%9F%BA%E7%A1%80"><span class="toc-number">1.0.1.</span> <span class="toc-text"> git基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E7%8A%B6%E6%80%81"><span class="toc-number">1.0.2.</span> <span class="toc-text"> git状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E9%87%8D%E8%A6%81%E5%91%BD%E4%BB%A4%E6%93%8D%E7%BB%83"><span class="toc-number">1.0.3.</span> <span class="toc-text"> git重要命令操练</span></a></li></ol></li></ol></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -213,6 +329,13 @@
             
             <div class="sticky-tablet">
   
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git"><span class="toc-number">1.</span> <span class="toc-text"> Git</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E5%9F%BA%E7%A1%80"><span class="toc-number">1.0.1.</span> <span class="toc-text"> git基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E7%8A%B6%E6%80%81"><span class="toc-number">1.0.2.</span> <span class="toc-text"> git状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E9%87%8D%E8%A6%81%E5%91%BD%E4%BB%A4%E6%93%8D%E7%BB%83"><span class="toc-number">1.0.3.</span> <span class="toc-text"> git重要命令操练</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </article>
   
   
   <article class="card card-content">
@@ -298,90 +421,16 @@
   </article>
   
   
-  <article class="card card-content widescreen-archive">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">15</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#git"><span class="toc-number">1.</span> <span class="toc-text"> Git</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E5%9F%BA%E7%A1%80"><span class="toc-number">1.0.1.</span> <span class="toc-text"> git基础</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E7%8A%B6%E6%80%81"><span class="toc-number">1.0.2.</span> <span class="toc-text"> git状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#git%E9%87%8D%E8%A6%81%E5%91%BD%E4%BB%A4%E6%93%8D%E7%BB%83"><span class="toc-number">1.0.3.</span> <span class="toc-text"> git重要命令操练</span></a></li></ol></li></ol></li></ol>
+  </article>
   
   
   <article class="card card-content">
@@ -413,85 +462,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">15</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -558,6 +528,13 @@
 
   
   
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
   
 
   

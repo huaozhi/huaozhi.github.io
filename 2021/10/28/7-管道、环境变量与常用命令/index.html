@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="zh-CN" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/logo.jpg">
+  <title>我的博客</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" as="script">
+  
+  
+  
+  <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/logo.jpg">
+      
+      <span class="navbar-logo-dsc">我的博客</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">首页 </a>
+    
+    <a href="/archives" class="navbar-menu-item">归档 </a>
+    
+    <a href="/tags" class="navbar-menu-item">标签 </a>
+    
+    <a href="/categories" class="navbar-menu-item">分类 </a>
+    
+    <a href="/about" class="navbar-menu-item">关于 </a>
+    
+    <a href="/links" class="navbar-menu-item">友链 </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      7.管道、环境变量与常用命令
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-10-28T13:54:47.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-10-28</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/Linux基础课/" class="post-meta-link">Linux基础课</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>1.6k 字</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/AcWing课程/" class="post-meta-link">AcWing课程</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h1 id="一-管道"><a class="markdownIt-Anchor" href="#一-管道"></a> 一、管道</h1>
+<h2 id="概念"><a class="markdownIt-Anchor" href="#概念"></a> 概念</h2>
+<p>管道类似于文件重定向，可以将前一个命令的<code>stdout</code>重定向到下一个命令的<code>stdin</code>。</p>
+<h2 id="要点"><a class="markdownIt-Anchor" href="#要点"></a> 要点</h2>
+<ol>
+<li>管道命令仅处理<code>stdout</code>，会忽略<code>stderr</code>。</li>
+<li>管道右边的命令必须能接受<code>stdin</code>。</li>
+<li>多个管道命令可以串联。</li>
+</ol>
+<h2 id="与文件重定向的区别"><a class="markdownIt-Anchor" href="#与文件重定向的区别"></a> 与文件重定向的区别</h2>
+<ul>
+<li>文件重定向左边为命令，右边为文件。</li>
+<li>管道左右两边均为命令，左边有<code>stdout</code>，右边有<code>stdin</code>。</li>
+</ul>
+<h2 id="举例"><a class="markdownIt-Anchor" href="#举例"></a> 举例</h2>
+<pre class="highlight"><code class="hljs bash">find . -name <span class="hljs-string">&#x27;*.py&#x27;</span> | xargs cat | wc -l<br></code></pre>
+<h1 id="二-环境变量"><a class="markdownIt-Anchor" href="#二-环境变量"></a> 二、环境变量</h1>
+<h2 id="概念-2"><a class="markdownIt-Anchor" href="#概念-2"></a> 概念</h2>
+<p>Linux系统中会用很多环境变量来记录<strong>配置信息</strong>。<br />
+环境变量类似于全局变量，可以被各个进程访问到。我们可以通过修改环境变量来方便地修改系统配置。</p>
+<h2 id="查看"><a class="markdownIt-Anchor" href="#查看"></a> 查看</h2>
+<p>列出当前环境下的所有环境变量：</p>
+<pre class="highlight"><code class="hljs bash">benv  <span class="hljs-comment"># 显示当前用户的变量</span><br><span class="hljs-built_in">set</span>  <span class="hljs-comment"># 显示当前shell的变量，包括当前用户的变量;</span><br><span class="hljs-built_in">export</span>  <span class="hljs-comment"># 显示当前导出成用户变量的shell变量</span><br></code></pre>
+<p>输出某个环境变量的值：</p>
+<pre class="highlight"><code class="hljs bash"><span class="hljs-built_in">echo</span> <span class="hljs-variable">$PATH</span><br></code></pre>
+<h2 id="修改"><a class="markdownIt-Anchor" href="#修改"></a> 修改</h2>
+<p>环境变量的定义、修改、删除操作可以参考<code>3. shell语法——变量</code>这一节的内容。</p>
+<p>为了将对环境变量的修改应用到未来所有环境下，可以将修改命令放到<code>~/.bashrc</code>文件中。<br />
+修改完<code>~/.bashrc</code>文件后，记得执行<code>source ~/.bashrc</code>，来将修改应用到当前的<code>bash</code>环境下。</p>
+<p>为何将修改命令放到<code>~/.bashrc</code>，就可以确保修改会影响未来所有的环境呢？</p>
+<ul>
+<li>每次启动bash，都会先执行<code>~/.bashrc</code>。</li>
+<li>每次<code>ssh</code>登陆远程服务器，都会启动一个<code>bash</code>命令行给我们。</li>
+<li>每次<code>tmux</code>新开一个<code>pane</code>，都会启动一个<code>bash</code>命令行给我们。</li>
+<li>所以未来所有新开的环境都会加载我们修改的内容。</li>
+</ul>
+<h2 id="常见环境变量"><a class="markdownIt-Anchor" href="#常见环境变量"></a> 常见环境变量</h2>
+<ol>
+<li><code>HOME</code>：用户的家目录。</li>
+<li><code>PATH</code>：可执行文件（命令）的存储路径。路径与路径之间用:分隔。当某个可执行文件同时出现在多个路径中时，会选择从左到右数第一个路径中的执行。下列所有存储路径的环境变量，均采用从左到右的优先顺序。</li>
+<li><code>LD_LIBRARY_PATH</code>：用于指定动态链接库(.so文件)的路径，其内容是以冒号分隔的路径列表。</li>
+<li><code>C_INCLUDE_PATH</code>：C语言的头文件路径，内容是以冒号分隔的路径列表。</li>
+<li><code>CPLUS_INCLUDE_PATH</code>：CPP的头文件路径，内容是以冒号分隔的路径列表。</li>
+<li><code>PYTHONPATH</code>：Python导入包的路径，内容是以冒号分隔的路径列表。</li>
+<li><code>JAVA_HOME</code>：jdk的安装目录。</li>
+<li><code>CLASSPATH</code>：存放Java导入类的路径，内容是以冒号分隔的路径列表。</li>
+</ol>
+<h1 id="三-常用命令"><a class="markdownIt-Anchor" href="#三-常用命令"></a> 三、常用命令</h1>
+<p>Linux命令非常多，本节讲解几个常用命令。其他命令依赖于大家根据实际操作环境，边用边查。</p>
+<h2 id="系统状况"><a class="markdownIt-Anchor" href="#系统状况"></a> 系统状况</h2>
+<ol>
+<li>
+<p><code>top</code>：查看所有进程的信息（Linux的任务管理器）</p>
+<ul>
+<li>打开后，输入M：按使用内存排序</li>
+<li>打开后，输入P：按使用CPU排序</li>
+<li>打开后，输入q：退出</li>
+</ul>
+</li>
+<li>
+<p><code>df -h</code>：查看硬盘使用情况</p>
+</li>
+<li>
+<p><code>free -h</code>：查看内存使用情况</p>
+</li>
+<li>
+<p><code>du -sh</code>：查看当前目录占用的硬盘空间</p>
+</li>
+<li>
+<p><code>ps aux</code>：查看所有进程</p>
+</li>
+<li>
+<p><code>kill -9 pid</code>：杀死编号为<code>pid</code>的进程</p>
+<p>传递某个具体的信号：<code>kill -s SIGTERM pid</code></p>
+</li>
+<li>
+<p><code>netstat -nt</code>：查看所有网络连接</p>
+</li>
+<li>
+<p><code>w</code>：列出当前登陆的用户</p>
+</li>
+<li>
+<p><code>ping www.baidu.com</code>：检查是否连网</p>
+</li>
+</ol>
+<h2 id="文件权限"><a class="markdownIt-Anchor" href="#文件权限"></a> 文件权限</h2>
+<ol>
+<li><code>chmod</code>：修改文件权限
+<ul>
+<li><code>chmod</code>+x xxx：给xxx添加可执行权限</li>
+<li><code>chmod</code>-x xxx：去掉xxx的可执行权限</li>
+<li><code>chmod</code>777 xxx：将xxx的权限改成777</li>
+<li><code>chmod</code>777 xxx -R：递归修改整个文件夹的权限</li>
+</ul>
+</li>
+</ol>
+<h2 id="文件检索"><a class="markdownIt-Anchor" href="#文件检索"></a> 文件检索</h2>
+<ol>
+<li>
+<p><code>find /path/to/directory/ -name '*.py'</code>：搜索某个文件路径下的所有<code>.py</code>文件</p>
+</li>
+<li>
+<p><code>grep xxx</code>：从stdin中读入若干行数据，如果某行中包含xxx，则输出该行；否则忽略该行。</p>
+</li>
+<li>
+<p><code>wc</code>：统计行数、单词数、字节数<br />
+既可以从stdin中直接读入内容；也可以在命令行参数中传入文件名列表；</p>
+<ul>
+<li><code>wc -l</code>：统计行数</li>
+<li><code>wc -w</code>：统计单词数</li>
+<li><code>wc -c</code>：统计字节数</li>
+</ul>
+</li>
+<li>
+<p><code>tree</code>：展示当前目录的文件结构</p>
+<ul>
+<li>
+<p>tree /path/to/directory/：展示某个目录的文件结构</p>
+</li>
+<li>
+<p>tree -a：展示隐藏文件</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>ag xxx</code>：搜索当前目录下的所有文件，检索xxx字符串</p>
+</li>
+<li>
+<p><code>cut</code>：分割一行内容</p>
+<p>从stdin中读入多行数据<br />
+<code>echo $PATH | cut -d ':' -f 3,5</code>：输出PATH用:分割后第3、5列数据<br />
+<code>echo $PATH | cut -d ':' -f 3-5</code>：输出PATH用:分割后第3-5列数据<br />
+<code>echo $PATH | cut -c 3,5</code>：输出PATH的第3、5个字符<br />
+<code>echo $PATH | cut -c 3-5</code>：输出PATH的第3-5个字符</p>
+</li>
+<li>
+<p><code>sort</code>：将每行内容按字典序排序</p>
+<ul>
+<li>可以从stdin中读取多行数据</li>
+<li>可以从命令行参数中读取文件名列表</li>
+</ul>
+</li>
+<li>
+<p><code>xargs</code>：将stdin中的数据用空格或回车分割成命令行参数<br />
+<code>find . -name '*.py' | xargs cat | wc -l</code>：统计当前目录下所有python文件的总行数</p>
+</li>
+</ol>
+<h2 id="查看文件内容"><a class="markdownIt-Anchor" href="#查看文件内容"></a> 查看文件内容</h2>
+<ol>
+<li><code>more</code>：浏览文件内容
+<ul>
+<li>回车：下一行</li>
+<li>空格：下一页</li>
+<li><code>b</code>：上一页</li>
+<li><code>q</code>：退出</li>
+</ul>
+</li>
+<li><code>less</code>：与<code>more</code>类似，功能更全
+<ul>
+<li>回车：下一行</li>
+<li><code>y</code>：上一行</li>
+<li><code>Page Down</code>：下一页</li>
+<li><code>Page Up</code>：上一页</li>
+<li><code>q</code>：退出</li>
+</ul>
+</li>
+<li><code>head -3 xxx</code>：展示<code>xxx</code>的前3行内容<br />
+同时支持从<code>stdin</code>读入内容</li>
+<li><code>tail -3 xxx</code>：展示<code>xxx</code>末尾3行内容<br />
+同时支持从<code>stdin</code>读入内容</li>
+</ol>
+<h2 id="用户相关"><a class="markdownIt-Anchor" href="#用户相关"></a> 用户相关</h2>
+<ol>
+<li><code>history</code>：展示当前用户的历史操作。内容存放在<code>~/.bash_history</code>中<br />
+工具</li>
+<li><code>md5sum</code>：计算<code>md5</code>哈希值<br />
+可以从stdin读入内容<br />
+也可以在命令行参数中传入文件名列表；</li>
+<li><code>time command</code>：统计<code>command</code>命令的执行时间</li>
+<li><code>ipython3</code>：交互式<code>python3</code>环境。可以当做计算器，或者批量管理文件。</li>
+<li><code>! echo &quot;Hello World&quot;</code>：!表示执行shell脚本</li>
+<li><code>watch -n 0.1 command</code>：每0.1秒执行一次command命令</li>
+<li><code>tar</code>：压缩文件
+<ul>
+<li><code>tar -zcvf xxx.tar.gz /path/to/file/*</code>：压缩</li>
+<li><code>tar -zxvf xxx.tar.gz</code>：解压缩</li>
+<li><code>diff xxx yyy</code>：查找文件<code>xxx</code>与<code>yyy</code>的不同点</li>
+</ul>
+</li>
+</ol>
+<h2 id="安装软件"><a class="markdownIt-Anchor" href="#安装软件"></a> 安装软件</h2>
+<ol>
+<li><code>sudo command</code>：以root身份执行command命令</li>
+<li><code>apt-get install xxx</code>：安装软件</li>
+<li><code>pip install xxx --user --upgrade</code>：安装python包</li>
+</ol>
+<p>作者：<code>yxc</code><br />
+链接：<a target="_blank" rel="noopener" href="https://www.acwing.com/">https://www.acwing.com/</a><br />
+来源：<code>AcWing</code><br />
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/10/21/git-note1/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">git_note1 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E7%AE%A1%E9%81%93"><span class="toc-number">1.</span> <span class="toc-text"> 一、管道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text"> 要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E6%96%87%E4%BB%B6%E9%87%8D%E5%AE%9A%E5%90%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.3.</span> <span class="toc-text"> 与文件重定向的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text"> 举例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text"> 二、环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">2.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 查看</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9"><span class="toc-number">2.3.</span> <span class="toc-text"> 修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.</span> <span class="toc-text"> 常见环境变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text"> 三、常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%8A%B6%E5%86%B5"><span class="toc-number">3.1.</span> <span class="toc-text"> 系统状况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">3.2.</span> <span class="toc-text"> 文件权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%A3%80%E7%B4%A2"><span class="toc-number">3.3.</span> <span class="toc-text"> 文件检索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">3.4.</span> <span class="toc-text"> 查看文件内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%9B%B8%E5%85%B3"><span class="toc-number">3.5.</span> <span class="toc-text"> 用户相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="toc-number">3.6.</span> <span class="toc-text"> 安装软件</span></a></li></ol></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/head_img.jpg" class="author-img">
+
+<p class="author-name">胡澳治</p>
+<p class="author-description">19级本科生，热爱篮球</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>15</span>
+    <span>文章</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>6</span>
+    <span>分类</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>11</span>
+    <span>标签</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/huaozhi">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/huaozhi/huaozhi.github.io/main/img/%E5%BE%AE%E4%BF%A1%E5%8F%B7.png">
+        <i class="iconfont icon-wechat society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45911345?spm=1010.2135.3001.5343">
+        <i class="iconfont /source/img/csdn.png society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E7%AE%A1%E9%81%93"><span class="toc-number">1.</span> <span class="toc-text"> 一、管道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text"> 要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E6%96%87%E4%BB%B6%E9%87%8D%E5%AE%9A%E5%90%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.3.</span> <span class="toc-text"> 与文件重定向的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text"> 举例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text"> 二、环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">2.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 查看</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9"><span class="toc-number">2.3.</span> <span class="toc-text"> 修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.</span> <span class="toc-text"> 常见环境变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text"> 三、常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%8A%B6%E5%86%B5"><span class="toc-number">3.1.</span> <span class="toc-text"> 系统状况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">3.2.</span> <span class="toc-text"> 文件权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%A3%80%E7%B4%A2"><span class="toc-number">3.3.</span> <span class="toc-text"> 文件检索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">3.4.</span> <span class="toc-text"> 查看文件内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%9B%B8%E5%85%B3"><span class="toc-number">3.5.</span> <span class="toc-text"> 用户相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="toc-number">3.6.</span> <span class="toc-text"> 安装软件</span></a></li></ol></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>分类</div>
+  <div class="categories-list">
+    
+      <a href="/categories/数据结构">
+        <div class="categories-list-item">
+          数据结构
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/数学问题">
+        <div class="categories-list-item">
+          数学问题
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/PAT甲级">
+        <div class="categories-list-item">
+          PAT甲级
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/力扣">
+        <div class="categories-list-item">
+          力扣
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Linux基础课">
+        <div class="categories-list-item">
+          Linux基础课
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/git">
+        <div class="categories-list-item">
+          git
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
+  <div class="tags-list">
+    
+    <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
+    
+    <a href="\tags\并查集" title="并查集"><div class="tags-list-item">并查集</div></a>
+    
+    <a href="\tags\AcWing课程" title="AcWing课程"><div class="tags-list-item">AcWing课程</div></a>
+    
+    <a href="\tags\最短路径" title="最短路径"><div class="tags-list-item">最短路径</div></a>
+    
+    <a href="\tags\AVL树" title="AVL树"><div class="tags-list-item">AVL树</div></a>
+    
+    <a href="\tags\动态规划" title="动态规划"><div class="tags-list-item">动态规划</div></a>
+    
+    <a href="\tags\数学问题" title="数学问题"><div class="tags-list-item">数学问题</div></a>
+    
+    <a href="\tags\树的遍历" title="树的遍历"><div class="tags-list-item">树的遍历</div></a>
+    
+    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
+    
+    <a href="\tags\素数判断" title="素数判断"><div class="tags-list-item">素数判断</div></a>
+    
+    <a href="\tags\最大公约数" title="最大公约数"><div class="tags-list-item">最大公约数</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E7%AE%A1%E9%81%93"><span class="toc-number">1.</span> <span class="toc-text"> 一、管道</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5"><span class="toc-number">1.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E7%82%B9"><span class="toc-number">1.2.</span> <span class="toc-text"> 要点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8E%E6%96%87%E4%BB%B6%E9%87%8D%E5%AE%9A%E5%90%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.3.</span> <span class="toc-text"> 与文件重定向的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BE%E4%BE%8B"><span class="toc-number">1.4.</span> <span class="toc-text"> 举例</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text"> 二、环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E5%BF%B5-2"><span class="toc-number">2.1.</span> <span class="toc-text"> 概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B"><span class="toc-number">2.2.</span> <span class="toc-text"> 查看</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9"><span class="toc-number">2.3.</span> <span class="toc-text"> 修改</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.4.</span> <span class="toc-text"> 常见环境变量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text"> 三、常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%8A%B6%E5%86%B5"><span class="toc-number">3.1.</span> <span class="toc-text"> 系统状况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90"><span class="toc-number">3.2.</span> <span class="toc-text"> 文件权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%A3%80%E7%B4%A2"><span class="toc-number">3.3.</span> <span class="toc-text"> 文件检索</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E5%86%85%E5%AE%B9"><span class="toc-number">3.4.</span> <span class="toc-text"> 查看文件内容</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%9B%B8%E5%85%B3"><span class="toc-number">3.5.</span> <span class="toc-text"> 用户相关</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%BD%AF%E4%BB%B6"><span class="toc-number">3.6.</span> <span class="toc-text"> 安装软件</span></a></li></ol></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>最近文章</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-10-28</div>
+        <a href="/2021/10/28/7-管道、环境变量与常用命令/"><div class="recent-posts-item-content">7.管道、环境变量与常用命令</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-10-21</div>
+        <a href="/2021/10/21/git-note1/"><div class="recent-posts-item-content">git_note1</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-09-29</div>
+        <a href="/2021/09/29/Dijkstra-DFS模板/"><div class="recent-posts-item-content">Dijkstra+DFS模板</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-09-28</div>
+        <a href="/2021/09/28/平衡二叉树模板/"><div class="recent-posts-item-content">平衡二叉树模板</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2020 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">我的博客 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      
+      
+    </div>
+    
+    
+    
+    
+      <div class="footer-dsc">
+        
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+        
+        <span>&nbsp;|&nbsp;</span>
+        
+        
+        本站总访客数<span id="busuanzi_value_site_uv"></span>次
+        
+      </div>
+      
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  <script>loadScript("/js/lib/busuanzi.min.js")</script>
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
