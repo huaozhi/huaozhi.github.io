@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="zh-CN" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/logo.jpg">
+  <title>我的博客</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" as="script">
+  
+  
+  
+  <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/logo.jpg">
+      
+      <span class="navbar-logo-dsc">我的博客</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">首页 </a>
+    
+    <a href="/archives" class="navbar-menu-item">归档 </a>
+    
+    <a href="/tags" class="navbar-menu-item">标签 </a>
+    
+    <a href="/categories" class="navbar-menu-item">分类 </a>
+    
+    <a href="/about" class="navbar-menu-item">关于 </a>
+    
+    <a href="/links" class="navbar-menu-item">友链 </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      8-租云服务器及配docker环境
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-10-30T08:46:01.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-10-30</span>
+    </time>
+    
+    
+    <span class="dot"></span>
+    <span>739 字</span>
+    
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h1 id="租云服务器及配docker环境"><a class="markdownIt-Anchor" href="#租云服务器及配docker环境"></a> 租云服务器及配docker环境</h1>
+<h2 id="概述"><a class="markdownIt-Anchor" href="#概述"></a> 概述</h2>
+<p>云平台的作用:</p>
+<ol>
+<li>存放我们的docker容器，让计算跑在云端。</li>
+<li>获得公网IP地址，让每个人可以访问到我们的服务。</li>
+</ol>
+<hr />
+<p>任选一个云平台即可，推荐配置：</p>
+<ol>
+<li>1核 2GB（后期可以动态扩容，前期配置低一些没关系）</li>
+<li>网络带宽采用按量付费，最大带宽拉满即可（费用取决于用量，与最大带宽无关）</li>
+<li>系统版本：ubuntu 20.04 LTS（推荐用统一版本，避免后期出现配置不兼容的问题）</li>
+</ol>
+<h2 id="租云服务器及安装docker"><a class="markdownIt-Anchor" href="#租云服务器及安装docker"></a> 租云服务器及安装docker</h2>
+<h3 id="阿里云"><a class="markdownIt-Anchor" href="#阿里云"></a> 阿里云</h3>
+<p>地址： <a target="_blank" rel="noopener" href="https://www.aliyun.com/">https://www.aliyun.com/</a></p>
+<h4 id="创建工作用户user0并赋予sudo权限"><a class="markdownIt-Anchor" href="#创建工作用户user0并赋予sudo权限"></a> 创建工作用户user0并赋予sudo权限</h4>
+<p>登录到新服务器。打开终端，然后</p>
+<pre class="highlight"><code class="hljs bash">ssh root@xxx.xxx.xxx.xxx <span class="hljs-comment"># xxx替换成新服务器的公网IP</span><br></code></pre>
+<p>创建user0用户：</p>
+<pre class="highlight"><code class="hljs bash">adduser user0 <span class="hljs-comment"># 创建用户user0</span><br>usermod -aG sudo user0 <span class="hljs-comment"># 给用户user0分配sudo权限</span><br></code></pre>
+<h4 id="配置免密登录方式"><a class="markdownIt-Anchor" href="#配置免密登录方式"></a> 配置免密登录方式</h4>
+<p>退回本机终端，然后配置user0用户的别名和免密登录。</p>
+<hr />
+<h4 id="配置新服务器的工作环境"><a class="markdownIt-Anchor" href="#配置新服务器的工作环境"></a> 配置新服务器的工作环境</h4>
+<p>将本机配置传到新服务器上：</p>
+<pre class="highlight"><code class="hljs bash">scp .bashrc .vimrc .tmux.conf server_name: <span class="hljs-comment"># server_name需要换成自己配置的别名</span><br></code></pre>
+<h4 id="安装tmux和docker"><a class="markdownIt-Anchor" href="#安装tmux和docker"></a> 安装<code>tmux</code>和<code>docker</code></h4>
+<p>登录到自己的服务器，然后安装<code>tmux</code>:</p>
+<pre class="highlight"><code class="hljs bash">sudo apt-get update<br>sudo apt-get install tmux<br></code></pre>
+<p>打开<code>tmux</code>。（养成好习惯）</p>
+<p>然后按照<code>docker</code>安装教程按照<code>docker</code>即可</p>
+<h3 id="腾讯云"><a class="markdownIt-Anchor" href="#腾讯云"></a> 腾讯云</h3>
+<p>地址： <a target="_blank" rel="noopener" href="https://cloud.tencent.com/">https://cloud.tencent.com/</a></p>
+<h4 id="创建工作用户user0并赋予sudo权限-2"><a class="markdownIt-Anchor" href="#创建工作用户user0并赋予sudo权限-2"></a> 创建工作用户user0并赋予sudo权限</h4>
+<p>登录到新服务器。打开终端，然后</p>
+<pre class="highlight"><code class="hljs bash">ssh root@xxx.xxx.xxx.xxx <span class="hljs-comment"># 注意腾讯云登录的用户不是root，而是ubuntu</span><br></code></pre>
+<p>创建user0用户：</p>
+<pre class="highlight"><code class="hljs bash">adduser user0 <span class="hljs-comment"># 创建用户user0</span><br>usermod -aG sudo user0 <span class="hljs-comment"># 给用户user0分配sudo权限</span><br></code></pre>
+<h4 id="配置免密登录方式-2"><a class="markdownIt-Anchor" href="#配置免密登录方式-2"></a> 配置免密登录方式</h4>
+<p>退回本机终端，然后配置user0用户的别名和免密登录。</p>
+<hr />
+<h4 id="配置新服务器的工作环境-2"><a class="markdownIt-Anchor" href="#配置新服务器的工作环境-2"></a> 配置新服务器的工作环境</h4>
+<p>将本机配置传到新服务器上：</p>
+<pre class="highlight"><code class="hljs bash">scp .bashrc .vimrc .tmux.conf server_name: <span class="hljs-comment"># server_name需要换成自己配置的别名</span><br></code></pre>
+<h4 id="安装tmux和docker-2"><a class="markdownIt-Anchor" href="#安装tmux和docker-2"></a> 安装<code>tmux</code>和<code>docker</code></h4>
+<p>登录到自己的服务器，然后安装<code>tmux</code>:</p>
+<pre class="highlight"><code class="hljs bash">sudo apt-get update<br>sudo apt-get install tmux<br></code></pre>
+<p>打开<code>tmux</code>。（养成好习惯）</p>
+<p>然后按照<code>docker</code>安装教程按照<code>docker</code>即可</p>
+<h3 id="华为云"><a class="markdownIt-Anchor" href="#华为云"></a> 华为云</h3>
+<p>地址：<a target="_blank" rel="noopener" href="https://www.huaweicloud.com/">https://www.huaweicloud.com/</a></p>
+<h4 id="创建工作用户user0并赋予sudo权限-3"><a class="markdownIt-Anchor" href="#创建工作用户user0并赋予sudo权限-3"></a> 创建工作用户user0并赋予sudo权限</h4>
+<p>登录到新服务器。打开终端，然后</p>
+<pre class="highlight"><code class="hljs bash">ssh root@xxx.xxx.xxx.xxx <span class="hljs-comment"># xxx替换成新服务器的公网IP</span><br></code></pre>
+<p>创建user0用户：</p>
+<pre class="highlight"><code class="hljs bash">adduser user0 <span class="hljs-comment"># 创建用户user0</span><br>usermod -aG sudo user0 <span class="hljs-comment"># 给用户user0分配sudo权限</span><br></code></pre>
+<h4 id="配置免密登录方式-3"><a class="markdownIt-Anchor" href="#配置免密登录方式-3"></a> 配置免密登录方式</h4>
+<p>退回本机终端，然后配置user0用户的别名和免密登录。</p>
+<hr />
+<h4 id="配置新服务器的工作环境-3"><a class="markdownIt-Anchor" href="#配置新服务器的工作环境-3"></a> 配置新服务器的工作环境</h4>
+<p>将本机配置传到新服务器上：</p>
+<pre class="highlight"><code class="hljs bash">scp .bashrc .vimrc .tmux.conf server_name: <span class="hljs-comment"># server_name需要换成自己配置的别名</span><br></code></pre>
+<h4 id="安装tmux和docker-3"><a class="markdownIt-Anchor" href="#安装tmux和docker-3"></a> 安装<code>tmux</code>和<code>docker</code></h4>
+<p>登录到自己的服务器，然后安装<code>tmux</code>:</p>
+<pre class="highlight"><code class="hljs bash">sudo apt-get update<br>sudo apt-get install tmux<br></code></pre>
+<p>打开<code>tmux</code>。（养成好习惯）</p>
+<p>然后按照<code>docker</code>安装教程按照<code>docker</code>即可</p>
+<h2 id="docker教程"><a class="markdownIt-Anchor" href="#docker教程"></a> docker教程</h2>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/10/30/4-ssh/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">4-ssh </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%9F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8A%E9%85%8Ddocker%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text"> 租云服务器及配docker环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%9F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8A%E5%AE%89%E8%A3%85docker"><span class="toc-number">1.2.</span> <span class="toc-text"> 租云服务器及安装docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 阿里云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%85%BE%E8%AE%AF%E4%BA%91"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 腾讯云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90-2"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F-2"><span class="toc-number">1.2.2.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83-2"><span class="toc-number">1.2.2.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker-2"><span class="toc-number">1.2.2.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8E%E4%B8%BA%E4%BA%91"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 华为云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90-3"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F-3"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83-3"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker-3"><span class="toc-number">1.2.3.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E6%95%99%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> docker教程</span></a></li></ol></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/head_img.jpg" class="author-img">
+
+<p class="author-name">胡澳治</p>
+<p class="author-description">19级本科生，热爱篮球</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>17</span>
+    <span>文章</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>6</span>
+    <span>分类</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>11</span>
+    <span>标签</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/huaozhi">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/huaozhi/huaozhi.github.io/main/img/%E5%BE%AE%E4%BF%A1%E5%8F%B7.png">
+        <i class="iconfont icon-wechat society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45911345?spm=1010.2135.3001.5343">
+        <i class="iconfont /source/img/csdn.png society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%9F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8A%E9%85%8Ddocker%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text"> 租云服务器及配docker环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%9F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8A%E5%AE%89%E8%A3%85docker"><span class="toc-number">1.2.</span> <span class="toc-text"> 租云服务器及安装docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 阿里云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%85%BE%E8%AE%AF%E4%BA%91"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 腾讯云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90-2"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F-2"><span class="toc-number">1.2.2.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83-2"><span class="toc-number">1.2.2.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker-2"><span class="toc-number">1.2.2.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8E%E4%B8%BA%E4%BA%91"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 华为云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90-3"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F-3"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83-3"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker-3"><span class="toc-number">1.2.3.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E6%95%99%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> docker教程</span></a></li></ol></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>分类</div>
+  <div class="categories-list">
+    
+      <a href="/categories/数据结构">
+        <div class="categories-list-item">
+          数据结构
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/数学问题">
+        <div class="categories-list-item">
+          数学问题
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/PAT甲级">
+        <div class="categories-list-item">
+          PAT甲级
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/力扣">
+        <div class="categories-list-item">
+          力扣
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Linux基础课">
+        <div class="categories-list-item">
+          Linux基础课
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/git">
+        <div class="categories-list-item">
+          git
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
+  <div class="tags-list">
+    
+    <a href="\tags\AcWing课程" title="AcWing课程"><div class="tags-list-item">AcWing课程</div></a>
+    
+    <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
+    
+    <a href="\tags\并查集" title="并查集"><div class="tags-list-item">并查集</div></a>
+    
+    <a href="\tags\最短路径" title="最短路径"><div class="tags-list-item">最短路径</div></a>
+    
+    <a href="\tags\AVL树" title="AVL树"><div class="tags-list-item">AVL树</div></a>
+    
+    <a href="\tags\动态规划" title="动态规划"><div class="tags-list-item">动态规划</div></a>
+    
+    <a href="\tags\数学问题" title="数学问题"><div class="tags-list-item">数学问题</div></a>
+    
+    <a href="\tags\树的遍历" title="树的遍历"><div class="tags-list-item">树的遍历</div></a>
+    
+    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
+    
+    <a href="\tags\素数判断" title="素数判断"><div class="tags-list-item">素数判断</div></a>
+    
+    <a href="\tags\最大公约数" title="最大公约数"><div class="tags-list-item">最大公约数</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%A7%9F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8A%E9%85%8Ddocker%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text"> 租云服务器及配docker环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A6%82%E8%BF%B0"><span class="toc-number">1.1.</span> <span class="toc-text"> 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A7%9F%E4%BA%91%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%8A%E5%AE%89%E8%A3%85docker"><span class="toc-number">1.2.</span> <span class="toc-text"> 租云服务器及安装docker</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%BF%E9%87%8C%E4%BA%91"><span class="toc-number">1.2.1.</span> <span class="toc-text"> 阿里云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90"><span class="toc-number">1.2.1.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F"><span class="toc-number">1.2.1.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-number">1.2.1.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker"><span class="toc-number">1.2.1.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%85%BE%E8%AE%AF%E4%BA%91"><span class="toc-number">1.2.2.</span> <span class="toc-text"> 腾讯云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90-2"><span class="toc-number">1.2.2.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F-2"><span class="toc-number">1.2.2.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83-2"><span class="toc-number">1.2.2.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker-2"><span class="toc-number">1.2.2.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8E%E4%B8%BA%E4%BA%91"><span class="toc-number">1.2.3.</span> <span class="toc-text"> 华为云</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%94%A8%E6%88%B7user0%E5%B9%B6%E8%B5%8B%E4%BA%88sudo%E6%9D%83%E9%99%90-3"><span class="toc-number">1.2.3.1.</span> <span class="toc-text"> 创建工作用户user0并赋予sudo权限</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95%E6%96%B9%E5%BC%8F-3"><span class="toc-number">1.2.3.2.</span> <span class="toc-text"> 配置免密登录方式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E7%8E%AF%E5%A2%83-3"><span class="toc-number">1.2.3.3.</span> <span class="toc-text"> 配置新服务器的工作环境</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E8%A3%85tmux%E5%92%8Cdocker-3"><span class="toc-number">1.2.3.4.</span> <span class="toc-text"> 安装tmux和docker</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#docker%E6%95%99%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text"> docker教程</span></a></li></ol></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>最近文章</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-10-30</div>
+        <a href="/2021/10/30/8-租云服务器及配docker环境/"><div class="recent-posts-item-content">8-租云服务器及配docker环境</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-10-30</div>
+        <a href="/2021/10/30/4-ssh/"><div class="recent-posts-item-content">4-ssh</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-10-28</div>
+        <a href="/2021/10/28/7-管道、环境变量与常用命令/"><div class="recent-posts-item-content">7.管道、环境变量与常用命令</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-10-21</div>
+        <a href="/2021/10/21/git-note1/"><div class="recent-posts-item-content">git_note1</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2020 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">我的博客 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      
+      
+    </div>
+    
+    
+    
+    
+      <div class="footer-dsc">
+        
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+        
+        <span>&nbsp;|&nbsp;</span>
+        
+        
+        本站总访客数<span id="busuanzi_value_site_uv"></span>次
+        
+      </div>
+      
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  <script>loadScript("/js/lib/busuanzi.min.js")</script>
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
