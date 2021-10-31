@@ -138,23 +138,23 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      素数
+      5-git
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-09-23T07:34:24.000Z" style="display: flex; align-items: center;">
+    <time datetime="2021-10-31T11:24:19.000Z" style="display: flex; align-items: center;">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
-      <span>2021-09-23</span>
+      <span>2021-10-31</span>
     </time>
     
     <span class="dot"></span>
     
-    <a href="/categories/数学问题/" class="post-meta-link">数学问题</a>
+    <a href="/categories/Linux基础课/" class="post-meta-link">Linux基础课</a>
     
     
     
     <span class="dot"></span>
-    <span>161 字</span>
+    <span>801 字</span>
     
   </div>
   
@@ -163,24 +163,134 @@
       <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
       
       
-        <a href="/tags/素数判断/" class="post-meta-link">素数判断</a>
+        <a href="/tags/AcWing课程/" class="post-meta-link">AcWing课程</a>
       
     </div>
   </div>
   
   </header>
   <div id="section" class="post-content">
-    <h2 id="小范围素数表"><a class="markdownIt-Anchor" href="#小范围素数表"></a> 小范围素数表</h2>
-<pre class="highlight"><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isPrime</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(n &lt;= <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">int</span> sqr = <span class="hljs-built_in">sqrt</span>(n);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= sqr; i++)&#123;<br>        <span class="hljs-keyword">if</span>(n%i == <span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre>
-<p>时间复杂度： $ O(\sqrt{n}) $</p>
-<h2 id="大范围素数表"><a class="markdownIt-Anchor" href="#大范围素数表"></a> 大范围素数表</h2>
-<h3 id="埃氏筛法"><a class="markdownIt-Anchor" href="#埃氏筛法"></a> 埃氏筛法</h3>
-<pre class="highlight"><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 10000</span><br><span class="hljs-keyword">int</span> prime[maxn], pNum = <span class="hljs-number">0</span>; <span class="hljs-comment">// prime数组存放所有素数，pNum为素数个数</span><br><span class="hljs-keyword">bool</span> p[maxn] = &#123;<span class="hljs-number">0</span>&#125;; <span class="hljs-comment">// 如果i是素数，p[i]为false，否则true</span><br>p[<span class="hljs-number">0</span>] = p[<span class="hljs-number">1</span>] = <span class="hljs-literal">true</span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">find_prime</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; maxn; i++)&#123;<br>        <span class="hljs-keyword">if</span>(p[i] == <span class="hljs-literal">false</span>)&#123;<br>            prime[pNum++] = i;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = i+i; j &lt; maxn; j += i)&#123;<br>                p[j] = <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre>
-<p>时间复杂度： $ O(\sqrt{n \log{log{ n }}}) $</p>
-<h3 id="欧拉筛"><a class="markdownIt-Anchor" href="#欧拉筛"></a> 欧拉筛</h3>
-<blockquote>
-<p>暂定，我还没学会</p>
-</blockquote>
+    <h2 id="git基本概念"><a class="markdownIt-Anchor" href="#git基本概念"></a> git基本概念</h2>
+<ul>
+<li>工作区：仓库的目录。工作区是独立于各个分支的。</li>
+<li>暂存区：数据暂时存放的区域，类似于工作区写入版本库前的缓存区。暂存区是独立于各个分支的。</li>
+<li>版本库：存放所有已经提交到本地仓库的代码版本</li>
+<li>版本结构：树结构，树中每个节点代表一个代码版本。</li>
+</ul>
+<h2 id="git常用命令"><a class="markdownIt-Anchor" href="#git常用命令"></a> git常用命令</h2>
+<ul>
+<li>
+<p><code>git config --global user.name xxx</code>：设置全局用户名，信息记录在<code>~/.gitconfig</code>文件中</p>
+</li>
+<li>
+<p><code>git config --global user.email xxx@xxx.com</code>：设置全局邮箱地址，信息记录在<code>~/.gitconfig</code>文件中</p>
+</li>
+<li>
+<p><code>git init</code>：将当前目录配置成git仓库，信息记录在隐藏的.git文件夹中</p>
+</li>
+<li>
+<p><code>git add XX</code>：将XX文件添加到暂存区</p>
+</li>
+<li>
+<p><code>git add .</code> ：将所有待加入暂存区的文件加入暂存区</p>
+</li>
+<li>
+<p><code>git rm --cached XX</code>：将文件从仓库索引目录中删掉</p>
+</li>
+<li>
+<p><code>git commit -m</code> “给自己看的备注信息”：将暂存区的内容提交到当前分支</p>
+</li>
+<li>
+<p><code>git status</code>：查看仓库状态</p>
+</li>
+<li>
+<p><code>git diff XX</code>：查看XX文件相对于暂存区修改了哪些内容</p>
+</li>
+<li>
+<p><code>git log</code>：查看当前分支的所有版本</p>
+</li>
+<li>
+<p><code>git reflog</code>：查看HEAD指针的移动历史（包括被回滚的版本）</p>
+</li>
+<li>
+<p><code>git reset --hard HEAD^</code> 或 <code>git reset --hard HEAD~</code>：将代码库回滚到上一个版本</p>
+</li>
+<li>
+<p><code>git reset --hard HEAD^^</code>：往上回滚两次，以此类推</p>
+</li>
+<li>
+<p><code>git reset --hard HEAD~100</code>：往上回滚100个版本</p>
+</li>
+<li>
+<p><code>git reset --hard 版本号</code>：回滚到某一特定版本</p>
+</li>
+<li>
+<p><code>git checkout — XX或git restore XX</code>：将XX文件尚未加入暂存区的修改全部撤销</p>
+</li>
+<li>
+<p><code>git remote add origin git@git.acwing.com:xxx/XXX.git</code>：将本地仓库关联到远程仓库</p>
+</li>
+<li>
+<p><code>git push -u</code> (第一次需要-u以后不需要)：将当前分支推送到远程仓库</p>
+</li>
+<li>
+<p><code>git push origin branch_name</code>：将本地的某个分支推送到远程仓库</p>
+</li>
+<li>
+<p><code>git clone git@git.acwing.com:xxx/XXX.git</code>：将远程仓库XXX下载到当前目录下</p>
+</li>
+<li>
+<p><code>git checkout -b branch_name</code>：创建并切换到branch_name这个分支</p>
+</li>
+<li>
+<p><code>git branch</code>：查看所有分支和当前所处分支</p>
+</li>
+<li>
+<p><code>git checkout branch_name</code>：切换到branch_name这个分支</p>
+</li>
+<li>
+<p><code>git merge branch_name</code>：将分支branch_name合并到当前分支上</p>
+</li>
+<li>
+<p><code>git branch -d branch_name</code>：删除本地仓库的branch_name分支</p>
+</li>
+<li>
+<p><code>git branch branch_name</code>：创建新分支</p>
+</li>
+<li>
+<p><code>git push --set-upstream origin branch_name</code>：设置本地的branch_name分支对应远程仓库的branch_name分支</p>
+</li>
+<li>
+<p><code>git push -d origin branch_name</code>：删除远程仓库的branch_name分支</p>
+</li>
+<li>
+<p><code>git pull</code>：将远程仓库的当前分支与本地仓库的当前分支合并</p>
+</li>
+<li>
+<p><code>git pull origin branch_name</code>：将远程仓库的branch_name分支与本地仓库的当前分支合并</p>
+</li>
+<li>
+<p><code>git branch --set-upstream-to=origin/branch_name1 branch_name2</code>：将远程的branch_name1分支与本地的branch_name2分对应</p>
+</li>
+<li>
+<p><code>git checkout -t origin/branch_name</code> 将远程的branch_name分支拉取到本地</p>
+</li>
+<li>
+<p><code>git stash</code>：将工作区和暂存区中尚未提交的修改存入栈中</p>
+</li>
+<li>
+<p><code>git stash apply</code>：将栈顶存储的修改恢复到当前分支，但不删除栈顶元素</p>
+</li>
+<li>
+<p><code>git stash drop</code>：删除栈顶存储的修改</p>
+</li>
+<li>
+<p><code>git stash pop</code>：将栈顶存储的修改恢复到当前分支，同时删除栈顶元素</p>
+</li>
+<li>
+<p><code>git stash list</code>：查看栈中所有元素</p>
+</li>
+</ul>
 
   </div>
   <div>
@@ -190,12 +300,12 @@
 <div class="nav">
   
   <div class="nav-item-prev">
-    <a href="/2021/09/23/质因数分解/" class="nav-link">
+    <a href="/2021/10/31/6-thrift/" class="nav-link">
       <i class="iconfont icon-left nav-prev-icon"></i>
       <div>
         <div class="nav-label">上一篇</div>
         
-        <div class="nav-title">质因数分解 </div>
+        <div class="nav-title">6-thrift </div>
         
       </div>
     </a>
@@ -203,11 +313,11 @@
   
   
   <div class="nav-item-next">
-    <a href="/2021/09/23/最大公约数/" class="nav-link">
+    <a href="/2021/10/31/3-shell语法/" class="nav-link">
       <div>
         <div class="nav-label">下一篇</div>
         
-        <div class="nav-title">最大公约数 </div>
+        <div class="nav-title">3-shell语法 </div>
         
       </div>
       <i class="iconfont icon-right nav-next-icon"></i>
@@ -223,7 +333,7 @@
 
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text"> 小范围素数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text"> 大范围素数表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text"> 埃氏筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E7%AD%9B"><span class="toc-number">2.2.</span> <span class="toc-text"> 欧拉筛</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> git基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text"> git常用命令</span></a></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -278,7 +388,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text"> 小范围素数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text"> 大范围素数表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text"> 埃氏筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E7%AD%9B"><span class="toc-number">2.2.</span> <span class="toc-text"> 欧拉筛</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> git基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text"> git常用命令</span></a></li></ol>
     </div>
   </article>
   
@@ -374,7 +484,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text"> 小范围素数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text"> 大范围素数表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text"> 埃氏筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E7%AD%9B"><span class="toc-number">2.2.</span> <span class="toc-text"> 欧拉筛</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-number">1.</span> <span class="toc-text"> git基本概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-number">2.</span> <span class="toc-text"> git常用命令</span></a></li></ol>
   </article>
   
   

@@ -134,97 +134,54 @@
     <div class="section-wrap">
       <div class="container">
         <div class="columns">
-          <main class="main-column">
-<article class="card card-content">
-  <header>
-    <h1 class="post-title">
-      素数
-    </h1>
-  </header>
-  <div class="post-meta post-show-meta">
-    <time datetime="2021-09-23T07:34:24.000Z" style="display: flex; align-items: center;">
-      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
-      <span>2021-09-23</span>
-    </time>
-    
-    <span class="dot"></span>
-    
-    <a href="/categories/数学问题/" class="post-meta-link">数学问题</a>
-    
-    
-    
-    <span class="dot"></span>
-    <span>161 字</span>
-    
-  </div>
+          <main class="main-column"><div class="card card-content">
+  <h1 class="widget-title">归档</h1>
+</div>
+<div class="archive-timeline">
   
-  <div class="post-meta post-show-meta" style="margin-top: -10px;">
-    <div style="display: flex; align-items: center;">
-      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
-      
-      
-        <a href="/tags/素数判断/" class="post-meta-link">素数判断</a>
-      
+  
+  
+  <div class="archive-timeline-tag"><span>2021</span></div>
+  
+  
+  <div class="archive-timeline-item">
+    <div class="archive-timeline-post">
+      <div class="card card-content">
+        <div class="archive-timeline-post-date">2021-09-23</div>
+        <div class="archive-timeline-post-content"><a href="/2021/09/23/1107-Social-Clusters/"
+            class="archive-timeline-post-item">1107-Social-Clusters</a></div>
+      </div>
     </div>
   </div>
   
-  </header>
-  <div id="section" class="post-content">
-    <h2 id="小范围素数表"><a class="markdownIt-Anchor" href="#小范围素数表"></a> 小范围素数表</h2>
-<pre class="highlight"><code class="hljs c++"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isPrime</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span></span>&#123;<br>    <span class="hljs-keyword">if</span>(n &lt;= <span class="hljs-number">1</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-keyword">int</span> sqr = <span class="hljs-built_in">sqrt</span>(n);<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt;= sqr; i++)&#123;<br>        <span class="hljs-keyword">if</span>(n%i == <span class="hljs-number">0</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>&#125;<br></code></pre>
-<p>时间复杂度： $ O(\sqrt{n}) $</p>
-<h2 id="大范围素数表"><a class="markdownIt-Anchor" href="#大范围素数表"></a> 大范围素数表</h2>
-<h3 id="埃氏筛法"><a class="markdownIt-Anchor" href="#埃氏筛法"></a> 埃氏筛法</h3>
-<pre class="highlight"><code class="hljs c++"><span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> maxn 10000</span><br><span class="hljs-keyword">int</span> prime[maxn], pNum = <span class="hljs-number">0</span>; <span class="hljs-comment">// prime数组存放所有素数，pNum为素数个数</span><br><span class="hljs-keyword">bool</span> p[maxn] = &#123;<span class="hljs-number">0</span>&#125;; <span class="hljs-comment">// 如果i是素数，p[i]为false，否则true</span><br>p[<span class="hljs-number">0</span>] = p[<span class="hljs-number">1</span>] = <span class="hljs-literal">true</span>;<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">find_prime</span><span class="hljs-params">()</span></span>&#123;<br>    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">2</span>; i &lt; maxn; i++)&#123;<br>        <span class="hljs-keyword">if</span>(p[i] == <span class="hljs-literal">false</span>)&#123;<br>            prime[pNum++] = i;<br>            <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> j = i+i; j &lt; maxn; j += i)&#123;<br>                p[j] = <span class="hljs-literal">true</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre>
-<p>时间复杂度： $ O(\sqrt{n \log{log{ n }}}) $</p>
-<h3 id="欧拉筛"><a class="markdownIt-Anchor" href="#欧拉筛"></a> 欧拉筛</h3>
-<blockquote>
-<p>暂定，我还没学会</p>
-</blockquote>
-
-  </div>
-  <div>
   
+  <div class="archive-timeline-item">
+    <div class="archive-timeline-post">
+      <div class="card card-content">
+        <div class="archive-timeline-post-date">2021-09-23</div>
+        <div class="archive-timeline-post-content"><a href="/2021/09/23/并查集/"
+            class="archive-timeline-post-item">并查集</a></div>
+      </div>
+    </div>
   </div>
-</article>
+  
+</div>
+
 <div class="nav">
   
   <div class="nav-item-prev">
-    <a href="/2021/09/23/质因数分解/" class="nav-link">
+    <a href="/archives/2021/page/2/" class="nav-link">
       <i class="iconfont icon-left nav-prev-icon"></i>
       <div>
-        <div class="nav-label">上一篇</div>
-        
-        <div class="nav-title">质因数分解 </div>
+        <div class="nav-label">上一页</div>
         
       </div>
     </a>
   </div>
   
   
-  <div class="nav-item-next">
-    <a href="/2021/09/23/最大公约数/" class="nav-link">
-      <div>
-        <div class="nav-label">下一篇</div>
-        
-        <div class="nav-title">最大公约数 </div>
-        
-      </div>
-      <i class="iconfont icon-right nav-next-icon"></i>
-    </a>
-  </div>
-  
 </div>
-
-<div class="card card-content comment-card" style="margin-top: 16px;">
-  <div class="comment-card-title">评论</div>
-  
-</div>
-
-<div class="card card-content toc-card" id="mobiletoc">
-  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text"> 小范围素数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text"> 大范围素数表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text"> 埃氏筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E7%AD%9B"><span class="toc-number">2.2.</span> <span class="toc-text"> 欧拉筛</span></a></li></ol></li></ol>
-</div></main>
+</main>
           <aside class="left-column">
             
             <div class="card card-author">
@@ -274,13 +231,6 @@
             
             <div class="sticky-tablet">
   
-  
-  <article class="display-when-two-columns spacer">
-    <div class="card card-content toc-card">
-      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text"> 小范围素数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text"> 大范围素数表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text"> 埃氏筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E7%AD%9B"><span class="toc-number">2.2.</span> <span class="toc-text"> 欧拉筛</span></a></li></ol></li></ol>
-    </div>
-  </article>
   
   
   <article class="card card-content">
@@ -366,16 +316,118 @@
   </article>
   
   
+  <article class="card card-content widescreen-archive">
+    <div class="archive-card">
+  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
+  <div class="archive-card-list">
+    
+    
+    
+      
+        
+        
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+      <a href="/archives/2021" class="archive-card-list-item">
+          2021
+          <span class="archive-card-list-item-badge">22</span>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
-  
-  <article class="card card-content toc-card">
-    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%8F%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">1.</span> <span class="toc-text"> 小范围素数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%A7%E8%8C%83%E5%9B%B4%E7%B4%A0%E6%95%B0%E8%A1%A8"><span class="toc-number">2.</span> <span class="toc-text"> 大范围素数表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%83%E6%B0%8F%E7%AD%9B%E6%B3%95"><span class="toc-number">2.1.</span> <span class="toc-text"> 埃氏筛法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AC%A7%E6%8B%89%E7%AD%9B"><span class="toc-number">2.2.</span> <span class="toc-text"> 欧拉筛</span></a></li></ol></li></ol>
-  </article>
   
   
   <article class="card card-content">
@@ -407,6 +459,113 @@
 </div>
   </article>
   
+  
+  <article class="card card-content">
+    <div class="archive-card">
+  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
+  <div class="archive-card-list">
+    
+    
+    
+      
+        
+        
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+      
+        
+      
+    
+    
+      <a href="/archives/2021" class="archive-card-list-item">
+          2021
+          <span class="archive-card-list-item-badge">22</span>
+      </a>
+    
+  </div>
+</div>
+  </article>
   
 </div>
           </aside>
@@ -473,13 +632,6 @@
 
   
   
-  
-
-  
-  
-    
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
-
   
 
   
