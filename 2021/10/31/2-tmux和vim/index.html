@@ -138,13 +138,13 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      4-ssh
+      2-tmux和vim
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-10-30T07:29:41.000Z" style="display: flex; align-items: center;">
+    <time datetime="2021-10-31T03:49:31.000Z" style="display: flex; align-items: center;">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
-      <span>2021-10-30</span>
+      <span>2021-10-31</span>
     </time>
     
     <span class="dot"></span>
@@ -154,7 +154,7 @@
     
     
     <span class="dot"></span>
-    <span>527 字</span>
+    <span>1.5k 字</span>
     
   </div>
   
@@ -170,64 +170,11 @@
   
   </header>
   <div id="section" class="post-content">
-    <h1 id="sshssh登录"><a class="markdownIt-Anchor" href="#sshssh登录"></a> ssh——ssh登录</h1>
-<h3 id="基本用法"><a class="markdownIt-Anchor" href="#基本用法"></a> 基本用法</h3>
-<p>远程登录服务器：</p>
-<pre class="highlight"><code class="hljs bash">ssh user@hostname<br></code></pre>
-<ul>
-<li><code>user</code> : 用户名</li>
-<li><code>hostname</code>:域名或IP地址</li>
-</ul>
-<p>第一次登录时会提示：</p>
-<pre class="highlight"><code class="hljs bash">The authenticity of host <span class="hljs-string">&#x27;123.57.47.211 (123.57.47.211)&#x27;</span> can<span class="hljs-string">&#x27;t be established.</span><br><span class="hljs-string">ECDSA key fingerprint is SHA256:iy237yysfCe013/l+kpDGfEG9xxHxm0dnxnAbJTPpG8.</span><br><span class="hljs-string">Are you sure you want to continue connecting (yes/no/[fingerprint])?</span><br></code></pre>
-<p>输入<code>yes</code>，然后回车即可。<br />
-这样会将该服务器的信息记录在<code>~/.ssh/known_hosts</code>文件中。</p>
-<p>然后输入密码即可登录到远程服务器中。</p>
-<hr />
-<p>默认登录端口为22，如果想要登录到某特定端口：</p>
-<pre class="highlight"><code class="hljs bash">ssh user@hostname -p 22<br></code></pre>
-<h3 id="配置文件"><a class="markdownIt-Anchor" href="#配置文件"></a> 配置文件</h3>
-<p>创建文件<code>~/.ssh/config</code>。</p>
-<p>然后在文件中输入：</p>
-<pre class="highlight"><code class="hljs bash">Host myserver1<br>    HostName: 域名或IP地址<br>    User: 用户名<br>Host myserver2<br>    HostName: 域名或IP地址<br>    User: 用户名<br></code></pre>
-<p>之后再使用服务器时，可以直接使用别名myserver1，myserver2。</p>
-<h3 id="密钥登录"><a class="markdownIt-Anchor" href="#密钥登录"></a> 密钥登录</h3>
-<p>创建密钥：</p>
-<pre class="highlight"><code class="hljs bash">ssh-keygen<br></code></pre>
-<p>然后一直回车即可。</p>
-<p>执行结束后，<code>~/.ssh/</code>目录下会多出两个文件：</p>
-<ul>
-<li><code>id_rsa</code>：私钥</li>
-<li><code>id_rsa.pub</code>：公钥</li>
-</ul>
-<p>之后想要免密登录哪个服务器，就把公钥复制给哪个服务器即可。</p>
-<p>例如，想要免密登录<code>myserver</code>服务器，则将公钥中的内容，复制到<code>myserver</code>中的<code>~/.ssh/authorized_keys</code>文件里即可。</p>
-<p>也可以使用下列命令一键添加公钥：</p>
-<pre class="highlight"><code class="hljs bash">ssh-copy-id myserver<br></code></pre>
-<h3 id="执行命令"><a class="markdownIt-Anchor" href="#执行命令"></a> 执行命令</h3>
-<p>命令格式：</p>
-<pre class="highlight"><code class="hljs bash">ssh user@hostname <span class="hljs-built_in">command</span><br></code></pre>
-<p>例如：</p>
-<pre class="highlight"><code class="hljs bash">ssh user@hostname ls -al<br></code></pre>
-<h1 id="sshscp传文件"><a class="markdownIt-Anchor" href="#sshscp传文件"></a> ssh——scp传文件</h1>
-<h3 id="基本用法-2"><a class="markdownIt-Anchor" href="#基本用法-2"></a> 基本用法</h3>
-<p>命令格式：</p>
-<pre class="highlight"><code class="hljs bash">scp <span class="hljs-built_in">source</span> destination<br></code></pre>
-<p>将<code>source</code>路径下的文件复制到<code>destination</code>中。</p>
-<p>一次复制多个文件：</p>
-<pre class="highlight"><code class="hljs bash">scp source1 source2 destination<br></code></pre>
-<p>复制文件夹：</p>
-<pre class="highlight"><code class="hljs bash">scp -r ~/tmp myserver:/home/acs/<br></code></pre>
-<p>将本地家目录下的<code>tmp</code>文件夹复制到<code>myserver</code>服务器中的<code>/home/acs</code>目录下。</p>
-<pre class="highlight"><code class="hljs bash">scp -r ~/tmp myserver:homework/<br></code></pre>
-<p>将本地家目录下的<code>tmp</code>文件夹复制到<code>myserver</code>服务器中的<code>~/homework/</code>目录下。</p>
-<pre class="highlight"><code class="hljs bash">scp -r myserver:homework .<br></code></pre>
-<p>将<code>myserver</code>服务器中的<code>~/homework/</code>文件夹复制到本地的当前路径下。</p>
-<p>指定服务器的端口号：</p>
-<pre class="highlight"><code class="hljs bash">scp -P 22 source1 source2 destination<br></code></pre>
-<p><strong>注意</strong>： <code>scp</code>的<code>-r</code> <code>-P</code>等参数尽量加在<code>source</code>和<code>destination</code>之前。</p>
-<h3 id="使用scp配置其他服务器的vim和tmux"><a class="markdownIt-Anchor" href="#使用scp配置其他服务器的vim和tmux"></a> 使用scp配置其他服务器的vim和tmux</h3>
-<pre class="highlight"><code class="hljs bash">scp ~/.vimrc ~/.tmux.conf myserver:<br></code></pre>
+    <h1 id="tmux和vim"><a class="markdownIt-Anchor" href="#tmux和vim"></a> tmux和vim</h1>
+<h2 id="1-tmux教程"><a class="markdownIt-Anchor" href="#1-tmux教程"></a> 1. tmux教程</h2>
+<pre class="highlight"><code class="hljs plaintext">功能：<br>    (1) 分屏。<br>    (2) 允许断开Terminal连接后，继续运行进程。<br>结构：<br>    一个tmux可以包含多个session，一个session可以包含多个window，一个window可以包含多个pane。<br>    实例：<br>        tmux:<br>            session 0:<br>                window 0:<br>                    pane 0<br>                    pane 1<br>                    pane 2<br>                    ...<br>                window 1<br>                window 2<br>                ...<br>            session 1<br>            session 2<br>            ...<br>操作：<br>    (1) tmux：新建一个session，其中包含一个window，window中包含一个pane，pane里打开了一个shell对话框。<br>    (2) 按下Ctrl + a后手指松开，然后按%：将当前pane左右平分成两个pane。<br>    (3) 按下Ctrl + a后手指松开，然后按&quot;（注意是双引号&quot;）：将当前pane上下平分成两个pane。<br>    (4) Ctrl + d：关闭当前pane；如果当前window的所有pane均已关闭，则自动关闭window；如果当前session的所有window均已关闭，则自动关闭session。<br>    (5) 鼠标点击可以选pane。<br>    (6) 按下ctrl + a后手指松开，然后按方向键：选择相邻的pane。<br>    (7) 鼠标拖动pane之间的分割线，可以调整分割线的位置。<br>    (8) 按住ctrl + a的同时按方向键，可以调整pane之间分割线的位置。<br>    (9) 按下ctrl + a后手指松开，然后按z：将当前pane全屏/取消全屏。<br>    (10) 按下ctrl + a后手指松开，然后按d：挂起当前session。<br>    (11) tmux a：打开之前挂起的session。<br>    (12) 按下ctrl + a后手指松开，然后按s：选择其它session。<br>        方向键 —— 上：选择上一项 session/window/pane<br>        方向键 —— 下：选择下一项 session/window/pane<br>        方向键 —— 右：展开当前项 session/window<br>        方向键 —— 左：闭合当前项 session/window<br>    (13) 按下Ctrl + a后手指松开，然后按c：在当前session中创建一个新的window。<br>    (14) 按下Ctrl + a后手指松开，然后按w：选择其他window，操作方法与(12)完全相同。<br>    (15) 按下Ctrl + a后手指松开，然后按PageUp：翻阅当前pane内的内容。<br>    (16) 鼠标滚轮：翻阅当前pane内的内容。<br>    (17) 在tmux中选中文本时，需要按住shift键。（仅支持Windows和Linux，不支持Mac，不过该操作并不是必须的，因此影响不大）<br>    (18) tmux中复制/粘贴文本的通用方式：<br>        (1) 按下Ctrl + a后松开手指，然后按[<br>        (2) 用鼠标选中文本，被选中的文本会被自动复制到tmux的剪贴板<br>        (3) 按下Ctrl + a后松开手指，然后按]，会将剪贴板中的内容粘贴到光标处<br></code></pre>
+<h2 id="2-vim教程"><a class="markdownIt-Anchor" href="#2-vim教程"></a> 2. vim教程</h2>
+<pre class="highlight"><code class="hljs plaintext">功能：<br>    (1) 命令行模式下的文本编辑器。<br>    (2) 根据文件扩展名自动判别编程语言。支持代码缩进、代码高亮等功能。<br>    (3) 使用方式：vim filename<br>        如果已有该文件，则打开它。<br>        如果没有该文件，则打开个一个新的文件，并命名为filename<br>模式：<br>    (1) 一般命令模式<br>        默认模式。命令输入方式：类似于打游戏放技能，按不同字符，即可进行不同操作。可以复制、粘贴、删除文本等。<br>    (2) 编辑模式<br>        在一般命令模式里按下i，会进入编辑模式。<br>        按下ESC会退出编辑模式，返回到一般命令模式。<br>    (3) 命令行模式<br>        在一般命令模式里按下:/?三个字母中的任意一个，会进入命令行模式。命令行在最下面。<br>        可以查找、替换、保存、退出、配置编辑器等。<br>操作：<br>    (1) i：进入编辑模式<br>    (2) ESC：进入一般命令模式<br>    (3) h 或 左箭头键：光标向左移动一个字符<br>    (4) j 或 向下箭头：光标向下移动一个字符<br>    (5) k 或 向上箭头：光标向上移动一个字符<br>    (6) l 或 向右箭头：光标向右移动一个字符<br>    (7) n&lt;Space&gt;：n表示数字，按下数字后再按空格，光标会向右移动这一行的n个字符<br>    (8) 0 或 功能键[Home]：光标移动到本行开头<br>    (9) $ 或 功能键[End]：光标移动到本行末尾<br>    (10) G：光标移动到最后一行<br>    (11) :n 或 nG：n为数字，光标移动到第n行<br>    (12) gg：光标移动到第一行，相当于1G<br>    (13) n&lt;Enter&gt;：n为数字，光标向下移动n行<br>    (14) /word：向光标之下寻找第一个值为word的字符串。<br>    (15) ?word：向光标之上寻找第一个值为word的字符串。<br>    (16) n：重复前一个查找操作<br>    (17) N：反向重复前一个查找操作<br>    (18) :n1,n2s/word1/word2/g：n1与n2为数字，在第n1行与n2行之间寻找word1这个字符串，并将该字符串替换为word2<br>    (19) :1,$s/word1/word2/g：将全文的word1替换为word2<br>    (20) :1,$s/word1/word2/gc：将全文的word1替换为word2，且在替换前要求用户确认。<br>    (21) v：选中文本<br>    (22) d：删除选中的文本<br>    (23) dd: 删除当前行<br>    (24) y：复制选中的文本<br>    (25) yy: 复制当前行<br>    (26) p: 将复制的数据在光标的下一行/下一个位置粘贴<br>    (27) u：撤销<br>    (28) Ctrl + r：取消撤销<br>    (29) 大于号 &gt;：将选中的文本整体向右缩进一次<br>    (30) 小于号 &lt;：将选中的文本整体向左缩进一次<br>    (31) :w 保存<br>    (32) :w! 强制保存<br>    (33) :q 退出<br>    (34) :q! 强制退出<br>    (35) :wq 保存并退出<br>    (36) :set paste 设置成粘贴模式，取消代码自动缩进<br>    (37) :set nopaste 取消粘贴模式，开启代码自动缩进<br>    (38) :set nu 显示行号<br>    (39) :set nonu 隐藏行号<br>    (40) gg=G：将全文代码格式化<br>    (41) :noh 关闭查找关键词高亮<br>    (42) Ctrl + q：当vim卡死时，可以取消当前正在执行的命令<br>异常处理：<br>    每次用vim编辑文件时，会自动创建一个.filename.swp的临时文件。<br>    如果打开某个文件时，该文件的swp文件已存在，则会报错。此时解决办法有两种：<br>        (1) 找到正在打开该文件的程序，并退出<br>        (2) 直接删掉该swp文件即可<br></code></pre>
 
   </div>
   <div>
@@ -237,12 +184,12 @@
 <div class="nav">
   
   <div class="nav-item-prev">
-    <a href="/2021/10/30/8-租云服务器及配docker环境/" class="nav-link">
+    <a href="/2021/10/31/3-shell语法/" class="nav-link">
       <i class="iconfont icon-left nav-prev-icon"></i>
       <div>
         <div class="nav-label">上一篇</div>
         
-        <div class="nav-title">8-租云服务器及配docker环境 </div>
+        <div class="nav-title">3-shell语法 </div>
         
       </div>
     </a>
@@ -250,11 +197,11 @@
   
   
   <div class="nav-item-next">
-    <a href="/2021/10/28/7-管道、环境变量与常用命令/" class="nav-link">
+    <a href="/2021/10/31/1-常用文件管理命令/" class="nav-link">
       <div>
         <div class="nav-label">下一篇</div>
         
-        <div class="nav-title">7.管道、环境变量与常用命令 </div>
+        <div class="nav-title">1-常用文件管理命令 </div>
         
       </div>
       <i class="iconfont icon-right nav-next-icon"></i>
@@ -270,7 +217,7 @@
 
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sshssh%E7%99%BB%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text"> ssh——ssh登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95"><span class="toc-number">1.0.3.</span> <span class="toc-text"> 密钥登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.4.</span> <span class="toc-text"> 执行命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sshscp%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text"> ssh——scp传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-2"><span class="toc-number">2.0.1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8scp%E9%85%8D%E7%BD%AE%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84vim%E5%92%8Ctmux"><span class="toc-number">2.0.2.</span> <span class="toc-text"> 使用scp配置其他服务器的vim和tmux</span></a></li></ol></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tmux%E5%92%8Cvim"><span class="toc-number">1.</span> <span class="toc-text"> tmux和vim</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-tmux%E6%95%99%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. tmux教程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-vim%E6%95%99%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. vim教程</span></a></li></ol></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -325,7 +272,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sshssh%E7%99%BB%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text"> ssh——ssh登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95"><span class="toc-number">1.0.3.</span> <span class="toc-text"> 密钥登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.4.</span> <span class="toc-text"> 执行命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sshscp%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text"> ssh——scp传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-2"><span class="toc-number">2.0.1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8scp%E9%85%8D%E7%BD%AE%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84vim%E5%92%8Ctmux"><span class="toc-number">2.0.2.</span> <span class="toc-text"> 使用scp配置其他服务器的vim和tmux</span></a></li></ol></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tmux%E5%92%8Cvim"><span class="toc-number">1.</span> <span class="toc-text"> tmux和vim</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-tmux%E6%95%99%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. tmux教程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-vim%E6%95%99%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. vim教程</span></a></li></ol></li></ol>
     </div>
   </article>
   
@@ -421,7 +368,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#sshssh%E7%99%BB%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text"> ssh——ssh登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.0.2.</span> <span class="toc-text"> 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E7%99%BB%E5%BD%95"><span class="toc-number">1.0.3.</span> <span class="toc-text"> 密钥登录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E5%91%BD%E4%BB%A4"><span class="toc-number">1.0.4.</span> <span class="toc-text"> 执行命令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#sshscp%E4%BC%A0%E6%96%87%E4%BB%B6"><span class="toc-number">2.</span> <span class="toc-text"> ssh——scp传文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95-2"><span class="toc-number">2.0.1.</span> <span class="toc-text"> 基本用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8scp%E9%85%8D%E7%BD%AE%E5%85%B6%E4%BB%96%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84vim%E5%92%8Ctmux"><span class="toc-number">2.0.2.</span> <span class="toc-text"> 使用scp配置其他服务器的vim和tmux</span></a></li></ol></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#tmux%E5%92%8Cvim"><span class="toc-number">1.</span> <span class="toc-text"> tmux和vim</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-tmux%E6%95%99%E7%A8%8B"><span class="toc-number">1.1.</span> <span class="toc-text"> 1. tmux教程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-vim%E6%95%99%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text"> 2. vim教程</span></a></li></ol></li></ol>
   </article>
   
   
