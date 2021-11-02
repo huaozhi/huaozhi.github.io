@@ -234,8 +234,8 @@
 <li><code>docker images</code>：列出本地的所有镜像</li>
 <li><code>docker rmi ubuntu:20.04</code>：删除<code>ubuntu:20.04</code>镜像</li>
 <li><code>docker [container] commit CONTAINER IMAGE_NAME:TAG</code>：生成某个容器的镜像</li>
-<li><code>docker save -o ubuntu:20.04.tar ubuntu:20.04</code>：将镜像<code>ubuntu:20.04</code>导出为本地文件<code>ubuntu:20.04.tar</code></li>
-<li><code>docker load -i ubuntu:20.04.tar</code>：将镜像<code>ubuntu:20.04</code>从本地文件<code>ubuntu:20.04.tar</code>加载出来</li>
+<li><code>docker save -o ubuntu:20.04.rar ubuntu:20.04</code>：将镜像<code>ubuntu:20.04</code>导出为本地文件<code>ubuntu:20.04.rar</code></li>
+<li><code>docker load -i ubuntu:20.04.rar</code>：将镜像<code>ubuntu:20.04</code>从本地文件<code>ubuntu:20.04.rar</code>加载出来</li>
 </ol>
 <p><strong>容器（container）</strong></p>
 <ol>
@@ -253,8 +253,8 @@
 <li><code>docker [container] exec CONTAINER COMMAND</code>：在容器中执行命令</li>
 <li><code>docker [container] rm CONTAINER</code>：删除容器</li>
 <li><code>docker container prune</code>：删除所有已经停止的容器</li>
-<li><code>docker export -o xxx.tar CONTAONER</code>：将容器导出为本地文件<code>xxx.tar</code></li>
-<li><code>docker import xxx.tar IMAGE_NAME:TAG</code>：将本地文件<code>xxx.tar</code>导入为镜像<code>IMAGE_NAME:TAG</code></li>
+<li><code>docker export -o xxx.rar CONTAONER</code>：将容器导出为本地文件<code>xxx.rar</code></li>
+<li><code>docker import xxx.rar IMAGE_NAME:TAG</code>：将本地文件<code>xxx.rar</code>导入为镜像<code>IMAGE_NAME:TAG</code></li>
 <li><code>docker export/import</code>与<code>docker save/load</code>的区别：
 <ul>
 <li><code>docker export/import</code>会丢弃历史记录和元数据信息，仅保留容器当前的快照状态</li>
