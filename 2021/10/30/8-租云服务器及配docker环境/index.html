@@ -149,7 +149,7 @@
     
     
     <span class="dot"></span>
-    <span>739 字</span>
+    <span>1.2k 字</span>
     
   </div>
   
@@ -225,6 +225,48 @@
 <p>打开<code>tmux</code>。（养成好习惯）</p>
 <p>然后按照<code>docker</code>安装教程按照<code>docker</code>即可</p>
 <h2 id="docker教程"><a class="markdownIt-Anchor" href="#docker教程"></a> docker教程</h2>
+<p><strong>将当前用户添加到docker用户组</strong><br />
+为了避免每次使用docker命令都需要加上</p>
+<pre class="highlight"><code class="hljs plaintext">sudo usermod -aG docker $USER<br></code></pre>
+<p><strong>镜像（images）</strong></p>
+<ol>
+<li><code>docker pull ubuntu:20.04</code>：拉取一个镜像</li>
+<li><code>docker images</code>：列出本地的所有镜像</li>
+<li><code>docker rmi ubuntu:20.04</code>：删除<code>ubuntu:20.04</code>镜像</li>
+<li><code>docker [container] commit CONTAINER IMAGE_NAME:TAG</code>：生成某个容器的镜像</li>
+<li><code>docker save -o ubuntu:20.04.tar ubuntu:20.04</code>：将镜像<code>ubuntu:20.04</code>导出为本地文件<code>ubuntu:20.04.tar</code></li>
+<li><code>docker load -i ubuntu:20.04.tar</code>：将镜像<code>ubuntu:20.04</code>从本地文件<code>ubuntu:20.04.tar</code>加载出来</li>
+</ol>
+<p><strong>容器（container）</strong></p>
+<ol>
+<li><code>docker [container] create -it ubuntu:20.04</code>：利用镜像<code>ubuntu:20.04</code>创建一个容器</li>
+<li><code>docker ps -a</code>：查看本地所有容器</li>
+<li><code>docker [container] start CONTAINER</code>：启动容器</li>
+<li><code>docker [container] stop CONTAINER</code>：停止容器</li>
+<li><code>docker [container] restart CONTAINER</code>：重启容器</li>
+<li><code>docker [container] run -itd ubuntu:20.04 /bin/bash</code>：创建并启动一个容器</li>
+<li><code>docker [container] attach CONTAINER</code>：进入容器
+<ul>
+<li>先按<code>ctrl-p</code>，再按<code>ctrl q</code>可以挂起容器</li>
+</ul>
+</li>
+<li><code>docker [container] exec CONTAINER COMMAND</code>：在容器中执行命令</li>
+<li><code>docker [container] rm CONTAINER</code>：删除容器</li>
+<li><code>docker container prune</code>：删除所有已经停止的容器</li>
+<li><code>docker export -o xxx.tar CONTAONER</code>：将容器导出为本地文件<code>xxx.tar</code></li>
+<li><code>docker import xxx.tar IMAGE_NAME:TAG</code>：将本地文件<code>xxx.tar</code>导入为镜像<code>IMAGE_NAME:TAG</code></li>
+<li><code>docker export/import</code>与<code>docker save/load</code>的区别：
+<ul>
+<li><code>docker export/import</code>会丢弃历史记录和元数据信息，仅保留容器当前的快照状态</li>
+<li><code>docker save/load</code>会保存完整记录，体积更大</li>
+</ul>
+</li>
+<li><code>docker top CONTAINER</code>：查看某容器的所有进程</li>
+<li><code>docker stats</code>：查看所有容器的统计信息，包括CPU、内存、存储、网络等</li>
+<li><code>docker cp xxx CONTAINER:xxx</code>和<code>docker cp CONTAINER:xxx xxx</code>：在本地和容器间复制文件</li>
+<li><code>docker rename CONTAINER1 CONTAINER2</code>：容器重命名</li>
+<li><code>docker update CONTAINER --memory 500MB</code>：修改容器配置</li>
+</ol>
 
   </div>
   <div>
