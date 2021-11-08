@@ -134,56 +134,159 @@
     <div class="section-wrap">
       <div class="container">
         <div class="columns">
-          <main class="main-column"><div class="card card-content">
-  <div class="categories-page-title" style="margin-bottom: 0.6rem;">分类</div>
-  <div>
-    共计&nbsp;25&nbsp;篇文章
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Linux-Django-2-创建菜单界面
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-11-04T01:20:07.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-11-04</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/Django框架课/" class="post-meta-link">Django框架课</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>342 字</span>
+    
   </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/AcWing课程/" class="post-meta-link">AcWing课程</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h2 id="笔记"><a class="markdownIt-Anchor" href="#笔记"></a> 笔记</h2>
+<ul>
+<li>
+<p>项目主结构</p>
+<ul>
+<li>
+<p>menu</p>
+</li>
+<li>
+<p>playground</p>
+</li>
+<li>
+<p>setting</p>
+</li>
+</ul>
+</li>
+<li>
+<p>将文件替换成文件夹：</p>
+<ul>
+<li><code>rm urls.py views.py models.py</code></li>
+<li><code>mkdir urls</code> 管理路由（即链接与函数的对应关系）</li>
+<li><code>mkdir views</code>管理http函数</li>
+<li><code>mkdir models</code> 管理数据库数据</li>
+<li><code>[mkdir templates]</code> 目录，管理HTML文件</li>
+<li><code>mkdir static</code> 管理静态文件
+<ul>
+<li><code>mkdir css</code> 对象的样式，如位置、长宽、颜色、背景、字体大小等</li>
+<li><code>mkdir js</code> 对象的功能逻辑，如对象的创建与销毁，事件函数、移动、变色等</li>
+<li><code>mkdir image</code> 图片</li>
+<li><code>mkdir audio</code> 声音</li>
+</ul>
+</li>
+<li><code>mkdir consumers</code> 管理<code>websocket</code>函数</li>
+</ul>
+</li>
+<li>
+<p>素材地址</p>
+<ul>
+<li>
+<p><a target="_blank" rel="noopener" href="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_match%2F0%2F11156556256%2F0.jpg">背景图片</a></p>
+<p>下载方式：<code>wget --output-document=自定义图片名称 图片地址</code></p>
+</li>
+<li>
+<p><code>jquery</code>库：</p>
+<ul>
+<li><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;https://cdn.acwing.com/static/jquery-ui-dist/jquery-ui.min.css&quot;&gt;</code></li>
+<li><code>&lt;script src=&quot;https://cdn.acwing.com/static/jquery/js/jquery-3.3.1.min.js&quot;&gt;&lt;/script&gt;</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>在所有要引用包的的python文件夹里创建<code>__init__.py</code></p>
+<ul>
+<li>先回到主文件夹里把urls.py的game路由注释，然后打开<code>settings.py</code>把时区改为<code>Asia/Shanghai</code></li>
+<li>在<code>INSTALLED_APPS</code>里加上<code>game.apps.GameConfig,</code></li>
+<li>到文件最后面添加<code>STATIC_ROOT = os.path.join(BASE_DIR, 'static')</code>（引入os包），表示静态文件存到哪个文件夹里</li>
+<li><code>MEDIA_ROOT = os.path.join(BASE_DIR, 'media')</code></li>
+<li><code>MEDIA_URL = '/media/'</code></li>
+</ul>
+</li>
+<li>
+<p>到image的menu菜单，下载背景图片</p>
+</li>
+<li>
+<p>到static的css文件夹创建<code>game.css</code></p>
+</li>
+<li>
+<p>到js文件夹里创建dist和src文件夹</p>
+</li>
+<li>
+<p>写一个js打包脚本</p>
+</li>
+</ul>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2021/11/08/Linux-Django-3-创建游戏界面/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">上一篇</div>
+        
+        <div class="nav-title">Linux-Django-3-创建游戏界面 </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/11/03/Linux-Django-1-创建Django项目/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">Linux_Django_1_创建Django项目 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
 </div>
-<div class="card card-content categories-page-card">
+
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
   
-  <a href="/categories/数据结构" class="categories-page-list-item" style="margin-top: 0;">
-    <span>数据结构</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;4&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/数学问题" class="categories-page-list-item" style="margin-top: 0;">
-    <span>数学问题</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;3&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/PAT甲级" class="categories-page-list-item" style="margin-top: 0;">
-    <span>PAT甲级</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;4&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/力扣" class="categories-page-list-item" style="margin-top: 0;">
-    <span>力扣</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;1&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/Linux基础课" class="categories-page-list-item" style="margin-top: 0;">
-    <span>Linux基础课</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;8&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/git" class="categories-page-list-item" style="margin-top: 0;">
-    <span>git</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;1&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/Django框架课" class="categories-page-list-item" style="margin-top: 0;">
-    <span>Django框架课</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;3&nbsp;篇文章</span>
-  </a>
-  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text"> 笔记</span></a></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -234,6 +337,13 @@
             
             <div class="sticky-tablet">
   
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text"> 笔记</span></a></li></ol>
+    </div>
+  </article>
   
   
   <article class="card card-content">
@@ -326,130 +436,16 @@
   </article>
   
   
-  <article class="card card-content widescreen-archive">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">25</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
-  
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%94%E8%AE%B0"><span class="toc-number">1.</span> <span class="toc-text"> 笔记</span></a></li></ol>
+  </article>
   
   
   <article class="card card-content">
@@ -481,125 +477,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">25</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -666,6 +543,13 @@
 
   
   
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
   
 
   

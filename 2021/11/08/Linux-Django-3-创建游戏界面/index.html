@@ -134,56 +134,115 @@
     <div class="section-wrap">
       <div class="container">
         <div class="columns">
-          <main class="main-column"><div class="card card-content">
-  <div class="categories-page-title" style="margin-bottom: 0.6rem;">分类</div>
-  <div>
-    共计&nbsp;25&nbsp;篇文章
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Linux-Django-3-创建游戏界面
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-11-08T12:24:53.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-11-08</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/Django框架课/" class="post-meta-link">Django框架课</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>457 字</span>
+    
   </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/AcWing课程/" class="post-meta-link">AcWing课程</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h2 id="游戏界面创建"><a class="markdownIt-Anchor" href="#游戏界面创建"></a> 游戏界面创建</h2>
+<p><strong>对上一节内容完善</strong></p>
+<p>为了避免因<code>game.js</code>里的类在全局范围内可见导致与其他文件中的内容发生重名的冲突，我们可采用</p>
+<p><strong>模块化</strong>的思想，将全局引入改为在<code>web.html</code>的<code>&lt;script&gt;</code>标签内引入。</p>
+<p>做法：</p>
+<ul>
+<li>
+<p>将<code>game/static/js/src/zbase.js</code>中的类<code>AcGame</code>前加入关键字<code>export</code></p>
+</li>
+<li>
+<p>在<code>game/templates/multiends/web.html</code>引入模块：</p>
+<pre class="highlight"><code class="hljs javascript">&#123;% load <span class="hljs-keyword">static</span> %&#125;<br>&lt;script type=<span class="hljs-string">&quot;module&quot;</span>&gt;<br>    <span class="hljs-keyword">import</span> &#123;AcGame&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;&#123;% static &#x27;js/dist/game.js&#x27; %&#125;&quot;</span>;<br> 	$(<span class="hljs-built_in">document</span>).ready(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">let</span> ac_game = <span class="hljs-keyword">new</span> AcGame(<span class="hljs-string">&quot;ac_game_12345678&quot;</span>);<br>    &#125;);<br>&lt;/script&gt;<br></code></pre>
+</li>
+</ul>
+<h4 id="各个子模块"><a class="markdownIt-Anchor" href="#各个子模块"></a> 各个子模块</h4>
+<ul>
+<li>
+<p><code>ac_game_object/zbase.js</code>：要显示的对象的基类<code>AcGameObject</code>，定义了游戏引擎，包括</p>
+<p><code>start update destroy on_destroy</code>等函数。所有游戏对象会在执行构造函数时存储到</p>
+<p><code>AC_GAME_OBJECTS</code>数组中。<code>requestAnimationFrame(函数名)</code>能将一秒分成60份，传入</p>
+<p>一个时间戳给函数，表示在哪一帧执行，通过递归可实现不断执行<code>update</code>函数。</p>
+</li>
+<li>
+<p><code>game_map/zbase.js</code>：定义了<code>GameMap</code>类，继承自<code>AcGameObject</code>，实例了<code>$canvas</code>标签对象并</p>
+<p>加入<code>playground</code>中，并获取了<code>$canvas[0].getContext('2d')</code>为<code>ctx</code>。</p>
+</li>
+<li>
+<p><code>player/zbase.js</code>：定义了<code>Player</code>类，实现了<code>move_to</code>,<code>shoot_fireball</code>,<code>is_attacked</code></p>
+<p>等函数，添加了事件监听。</p>
+</li>
+<li>
+<p><code>skill/fireball/zbase.js</code>：定义了<code>FireBall</code>类，实现火球的伤害功能。</p>
+</li>
+<li>
+<p><code>particle/zbase.js</code>：实现玩家被击中的粒子效果。</p>
+</li>
+<li>
+<p><code>zbase.js</code>：在<code>acapp/script</code>中写的压缩脚本能将该文件的内容根据文件名字典序排序后放在最</p>
+<p>后的位置，保证各个类和函数在前面有定义。</p>
+<p>其中定义了<code>AcGamePlayground</code>类,类中定义了<code>$playground</code>的<code>&lt;div&gt;</code>标签，并用<code>css</code>类确定样式，并将该标签<code>append</code>到<code>$ac_game</code>中。记录了<code>$playground</code>的<code>width</code>和<code>height</code>。并用<code>players</code>数组存储游戏玩家对象。并用<code>game_map</code>实例化了<code>GameMap</code>类。</p>
+</li>
+</ul>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/11/04/Linux-Django-2-创建菜单界面/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">Linux-Django-2-创建菜单界面 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
 </div>
-<div class="card card-content categories-page-card">
+
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
   
-  <a href="/categories/数据结构" class="categories-page-list-item" style="margin-top: 0;">
-    <span>数据结构</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;4&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/数学问题" class="categories-page-list-item" style="margin-top: 0;">
-    <span>数学问题</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;3&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/PAT甲级" class="categories-page-list-item" style="margin-top: 0;">
-    <span>PAT甲级</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;4&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/力扣" class="categories-page-list-item" style="margin-top: 0;">
-    <span>力扣</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;1&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/Linux基础课" class="categories-page-list-item" style="margin-top: 0;">
-    <span>Linux基础课</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;8&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/git" class="categories-page-list-item" style="margin-top: 0;">
-    <span>git</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;1&nbsp;篇文章</span>
-  </a>
-  
-  <a href="/categories/Django框架课" class="categories-page-list-item" style="margin-top: 0;">
-    <span>Django框架课</span>
-    <span
-      class="categories-page-list-item-total">共计&nbsp;3&nbsp;篇文章</span>
-  </a>
-  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E7%95%8C%E9%9D%A2%E5%88%9B%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text"> 游戏界面创建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 各个子模块</span></a></li></ol></li></ol></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -234,6 +293,13 @@
             
             <div class="sticky-tablet">
   
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E7%95%8C%E9%9D%A2%E5%88%9B%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text"> 游戏界面创建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 各个子模块</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </article>
   
   
   <article class="card card-content">
@@ -299,157 +365,43 @@
   <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
   <div class="tags-list">
     
-    <a href="\tags\AcWing课程" title="AcWing课程"><div class="tags-list-item">AcWing课程</div></a>
-    
-    <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
-    
     <a href="\tags\并查集" title="并查集"><div class="tags-list-item">并查集</div></a>
-    
-    <a href="\tags\最短路径" title="最短路径"><div class="tags-list-item">最短路径</div></a>
-    
-    <a href="\tags\AVL树" title="AVL树"><div class="tags-list-item">AVL树</div></a>
-    
-    <a href="\tags\动态规划" title="动态规划"><div class="tags-list-item">动态规划</div></a>
-    
-    <a href="\tags\数学问题" title="数学问题"><div class="tags-list-item">数学问题</div></a>
-    
-    <a href="\tags\树的遍历" title="树的遍历"><div class="tags-list-item">树的遍历</div></a>
-    
-    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
-    
-    <a href="\tags\素数判断" title="素数判断"><div class="tags-list-item">素数判断</div></a>
     
     <a href="\tags\最大公约数" title="最大公约数"><div class="tags-list-item">最大公约数</div></a>
     
-  </div>
-</div>
-  </article>
-  
-  
-  <article class="card card-content widescreen-archive">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
+    <a href="\tags\素数判断" title="素数判断"><div class="tags-list-item">素数判断</div></a>
     
+    <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
     
+    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
     
-      
-        
-        
-        
-      
+    <a href="\tags\树的遍历" title="树的遍历"><div class="tags-list-item">树的遍历</div></a>
     
-      
-        
-      
+    <a href="\tags\数学问题" title="数学问题"><div class="tags-list-item">数学问题</div></a>
     
-      
-        
-      
+    <a href="\tags\动态规划" title="动态规划"><div class="tags-list-item">动态规划</div></a>
     
-      
-        
-      
+    <a href="\tags\AVL树" title="AVL树"><div class="tags-list-item">AVL树</div></a>
     
-      
-        
-      
+    <a href="\tags\最短路径" title="最短路径"><div class="tags-list-item">最短路径</div></a>
     
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">25</span>
-      </a>
+    <a href="\tags\AcWing课程" title="AcWing课程"><div class="tags-list-item">AcWing课程</div></a>
     
   </div>
 </div>
   </article>
+  
   
 </div>
           </aside>
           <aside class="right-column">
             <div class="sticky-widescreen">
   
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B8%E6%88%8F%E7%95%8C%E9%9D%A2%E5%88%9B%E5%BB%BA"><span class="toc-number">1.</span> <span class="toc-text"> 游戏界面创建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%84%E4%B8%AA%E5%AD%90%E6%A8%A1%E5%9D%97"><span class="toc-number">1.0.1.</span> <span class="toc-text"> 各个子模块</span></a></li></ol></li></ol></li></ol>
+  </article>
   
   
   <article class="card card-content">
@@ -481,125 +433,6 @@
 </div>
   </article>
   
-  
-  <article class="card card-content">
-    <div class="archive-card">
-  <div class="archive-card-header"><i class="iconfont icon-wodebaobiao" style="padding-right: 2px;"></i>归档</div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-    
-      <a href="/archives/2021" class="archive-card-list-item">
-          2021
-          <span class="archive-card-list-item-badge">25</span>
-      </a>
-    
-  </div>
-</div>
-  </article>
   
 </div>
           </aside>
@@ -666,6 +499,13 @@
 
   
   
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
   
 
   
