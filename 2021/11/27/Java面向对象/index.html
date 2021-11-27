@@ -138,23 +138,23 @@
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      1-常用文件管理命令
+      Java面向对象
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2021-10-31T03:47:23.000Z" style="display: flex; align-items: center;">
+    <time datetime="2021-11-27T00:17:42.000Z" style="display: flex; align-items: center;">
       <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
-      <span>2021-10-31</span>
+      <span>2021-11-27</span>
     </time>
     
     <span class="dot"></span>
     
-    <a href="/categories/Linux基础课/" class="post-meta-link">Linux基础课</a>
+    <a href="/categories/Java/" class="post-meta-link">Java</a>
     
     
     
     <span class="dot"></span>
-    <span>274 字</span>
+    <span>1k 字</span>
     
   </div>
   
@@ -163,15 +163,160 @@
       <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
       
       
-        <a href="/tags/AcWing课程/" class="post-meta-link">AcWing课程</a>
+        <a href="/tags/Java/" class="post-meta-link">Java</a>
       
     </div>
   </div>
   
   </header>
   <div id="section" class="post-content">
-    <h1 id="1-常用命令介绍"><a class="markdownIt-Anchor" href="#1-常用命令介绍"></a> 1. 常用命令介绍</h1>
-<pre class="highlight"><code class="hljs plaintext">(1) ctrl c: 取消命令，并且换行<br>(2) ctrl u: 清空本行命令<br>(3) tab键：可以补全命令和文件名，如果补全不了快速按两下tab键，可以显示备选选项<br>(4) ls: 列出当前目录下所有文件，蓝色的是文件夹，白色的是普通文件，绿色的是可执行文件<br>(5) pwd: 显示当前路径<br>(6) cd XXX: 进入XXX目录下, cd .. 返回上层目录<br>(7) cp XXX YYY: 将XXX文件复制成YYY，XXX和YYY可以是一个路径，比如../dir_c/a.txt，表示上层目录下的dir_c文件夹下的文件a.txt<br>(8) mkdir XXX: 创建目录XXX<br>(9) rm XXX: 删除普通文件;  rm XXX -r: 删除文件夹<br>(10) mv XXX YYY: 将XXX文件移动到YYY，和cp命令一样，XXX和YYY可以是一个路径；重命名也是用这个命令<br>(11) touch XXX: 创建一个文件<br>(12) cat XXX: 展示文件XXX中的内容<br>(13) 复制文本<br>    windows/Linux下：Ctrl + insert，Mac下：command + c<br>(14) 粘贴文本<br>    windows/Linux下：Shift + insert，Mac下：command + v<br></code></pre>
+    <h2 id="可变参数"><a class="markdownIt-Anchor" href="#可变参数"></a> 可变参数</h2>
+<pre class="highlight"><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getSum</span><span class="hljs-params">(<span class="hljs-keyword">int</span>... nums)</span> </span>&#123; <span class="hljs-comment">// int... 表示接受的是可变参数，类型是 int ,即可以接收多个 int(0-多)</span><br>    <span class="hljs-keyword">int</span> n = num.length, sum = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i ++) &#123;<br>        sum += num[i];<br>    &#125;<br>&#125;<br></code></pre>
+<ul>
+<li>可变参数的实参可以是0个或任意多个</li>
+<li>可变参数的实参可以为数组</li>
+<li>可变参数的实质就是数组</li>
+<li>可变参数可以和普通类型的参数一起放在形参列表，但必须保证可变参数在最后</li>
+<li>一个形参列表只能出现一个可变参数</li>
+</ul>
+<h2 id="idea快捷键"><a class="markdownIt-Anchor" href="#idea快捷键"></a> idea快捷键</h2>
+<ul>
+<li><code>ctrl + d</code>复制当前行或选中内容</li>
+<li><code>ctrl + y</code>删除当前行</li>
+<li><code>alt + /</code>自动补全代码</li>
+<li><code>ctrl + /</code>注释或取消注释</li>
+<li><code>ctrl + alt + l</code>快速格式化代码</li>
+<li><code>shirft + F10</code> 运行程序</li>
+<li>生成构造器等 <code>alt + insert</code></li>
+<li>查看一个类的层级关系 <code>ctrl + H</code></li>
+<li>将光标放在一个方法上，输入 <code>ctrl + B</code>, 可以定位到方法</li>
+<li>模板快捷键</li>
+</ul>
+<h2 id="包"><a class="markdownIt-Anchor" href="#包"></a> 包</h2>
+<h3 id="包的三大作用"><a class="markdownIt-Anchor" href="#包的三大作用"></a> 包的三大作用</h3>
+<ul>
+<li>区分相同名字的类</li>
+<li>方便管理类</li>
+<li>控制访问范围</li>
+</ul>
+<h3 id="包的命名"><a class="markdownIt-Anchor" href="#包的命名"></a> 包的命名</h3>
+<ul>
+<li>只能包含字母、数字、下划线、小圆点</li>
+<li>不能包含关键字</li>
+<li>不能数字开头</li>
+<li>不能是关键字或保留字</li>
+<li>一般是小写字母+小圆点</li>
+<li>一般是<code>com.公司名.项目名.业务模块名</code></li>
+</ul>
+<h3 id="常用包"><a class="markdownIt-Anchor" href="#常用包"></a> 常用包</h3>
+<ul>
+<li><code>java.lang.*</code> :基本包，默认引入，不需要再引入.</li>
+<li><code>java.util.*</code>: 系统提供的工具包, 工具类，使用 Scanner</li>
+<li><code>java.net.*</code>:网络包，网络开发</li>
+<li><code>java.awt.*</code>:是做 java 的界面开发，GUI</li>
+</ul>
+<h3 id="注意事项"><a class="markdownIt-Anchor" href="#注意事项"></a> 注意事项</h3>
+<ul>
+<li><code>package</code> 的作用是声明当前类所在的包，需要放在类(或者文件)的最上面</li>
+<li>一个类中最多只有一句 <code>package</code></li>
+</ul>
+<h2 id="访问修饰符"><a class="markdownIt-Anchor" href="#访问修饰符"></a> 访问修饰符</h2>
+<ul>
+<li><code>public</code> ：本类、同一个包、子类、不同包都可以访问</li>
+<li><code>protected</code> ：本类、同一个包、子类可以访问，不同包不可以访问</li>
+<li><code>默认</code> ：本类、同一个包可以访问，子类、不同包不可以访问</li>
+<li><code>private</code> ：只有本类可以访问，同一个包、子类、不同包不可以访问</li>
+</ul>
+<h2 id="方法重载与方法重写"><a class="markdownIt-Anchor" href="#方法重载与方法重写"></a> 方法重载与方法重写</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">名称</th>
+<th style="text-align:center">发生范围</th>
+<th style="text-align:center">方法名</th>
+<th style="text-align:center">形参列表</th>
+<th style="text-align:center">返回类型</th>
+<th style="text-align:center">修饰符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">重载(overload)</td>
+<td style="text-align:center">本类</td>
+<td style="text-align:center">相同</td>
+<td style="text-align:center">类型、个数或顺序至少一个不一样</td>
+<td style="text-align:center">无要求</td>
+<td style="text-align:center">无要求</td>
+</tr>
+<tr>
+<td style="text-align:center">重写(override)</td>
+<td style="text-align:center">父子类</td>
+<td style="text-align:center">相同</td>
+<td style="text-align:center">类型、个数和顺序都要一样</td>
+<td style="text-align:center">相同或者是父类返回类型的子类</td>
+<td style="text-align:center">不能缩小父类的访问范围</td>
+</tr>
+</tbody>
+</table>
+<h2 id="封装-继承-多态"><a class="markdownIt-Anchor" href="#封装-继承-多态"></a> 封装、继承、多态</h2>
+<h4 id="多态"><a class="markdownIt-Anchor" href="#多态"></a> 多态</h4>
+<p>多态是建立在封装和继承的基础上的</p>
+<ul>
+<li>
+<p>方法的多态</p>
+<ul>
+<li>
+<p>重载</p>
+<p>参数的类型、个数或顺序不同调用不同的方法</p>
+</li>
+<li>
+<p>重写</p>
+<p>父类子类调用不同的方法</p>
+</li>
+</ul>
+</li>
+<li>
+<p>对象的多态（关键、重难点）</p>
+<ol>
+<li>
+<p>一个对象的编译类型和运行类型可以不一致，父类对象的引用可以指向子类对象</p>
+<blockquote>
+<p>Animal animal = new Dog(); animal的编译类型是Animal，运行类型是Dog</p>
+</blockquote>
+</li>
+<li>
+<p>编译类型在编译对象时就已经确定了，不能改变</p>
+</li>
+<li>
+<p>运行类型是可以改变的</p>
+</li>
+<li>
+<p>编译类型看定义时 = 的左边， 运行类型看 = 的右边</p>
+</li>
+</ol>
+</li>
+</ul>
+<p><strong>多态的向上转型</strong></p>
+<ol>
+<li>本质：父类的引用指向了子类的对象</li>
+<li>语法：父类类型 引用名 = new 子类类型()；</li>
+<li>特点：
+<ul>
+<li>编译类型看左边，运行类型看右边</li>
+<li>可以调用父类中的所有成员，但是遵循子类对父类的对应访问权限</li>
+<li>不能调用子类的特有成员，因为能调用什么成员在编译阶段已经确定</li>
+<li>最终运行效果看子类具体实现，如子类方法重写了父类方法，则实现子类方法</li>
+</ul>
+</li>
+</ol>
+<p><strong>多态的向下转型</strong></p>
+<ol>
+<li>语法：子类类型 引用名 = （子类类型）父类引用</li>
+<li>只能强制转换父类的引用，不能转换父类对象</li>
+<li>要求父类引用必须是指向当前目标类型的对象</li>
+<li>向下转型后，就可以调用子类的所有成员了</li>
+</ol>
+<p><code>instanceOf</code>比较操作符，用于判断对象的运行类型是否为 XX 类型或 XX 类型的子类型</p>
 
   </div>
   <div>
@@ -180,25 +325,13 @@
 </article>
 <div class="nav">
   
-  <div class="nav-item-prev">
-    <a href="/2021/10/31/2-tmux和vim/" class="nav-link">
-      <i class="iconfont icon-left nav-prev-icon"></i>
-      <div>
-        <div class="nav-label">上一篇</div>
-        
-        <div class="nav-title">2-tmux和vim </div>
-        
-      </div>
-    </a>
-  </div>
-  
   
   <div class="nav-item-next">
-    <a href="/2021/10/30/8-租云服务器及配docker环境/" class="nav-link">
+    <a href="/2021/11/27/Java基础/" class="nav-link">
       <div>
         <div class="nav-label">下一篇</div>
         
-        <div class="nav-title">8-租云服务器及配docker环境 </div>
+        <div class="nav-title">Java基础 </div>
         
       </div>
       <i class="iconfont icon-right nav-next-icon"></i>
@@ -214,7 +347,7 @@
 
 <div class="card card-content toc-card" id="mobiletoc">
   <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> 1. 常用命令介绍</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text"> 可变参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#idea%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">2.</span> <span class="toc-text"> idea快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text"> 包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E4%B8%89%E5%A4%A7%E4%BD%9C%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 包的三大作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">3.2.</span> <span class="toc-text"> 包的命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8C%85"><span class="toc-number">3.3.</span> <span class="toc-text"> 常用包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.4.</span> <span class="toc-text"> 注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text"> 访问修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99"><span class="toc-number">5.</span> <span class="toc-text"> 方法重载与方法重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85-%E7%BB%A7%E6%89%BF-%E5%A4%9A%E6%80%81"><span class="toc-number">6.</span> <span class="toc-text"> 封装、继承、多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">6.0.1.</span> <span class="toc-text"> 多态</span></a></li></ol></li></ol></li></ol>
 </div></main>
           <aside class="left-column">
             
@@ -269,7 +402,7 @@
   <article class="display-when-two-columns spacer">
     <div class="card card-content toc-card">
       <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> 1. 常用命令介绍</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text"> 可变参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#idea%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">2.</span> <span class="toc-text"> idea快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text"> 包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E4%B8%89%E5%A4%A7%E4%BD%9C%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 包的三大作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">3.2.</span> <span class="toc-text"> 包的命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8C%85"><span class="toc-number">3.3.</span> <span class="toc-text"> 常用包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.4.</span> <span class="toc-text"> 注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text"> 访问修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99"><span class="toc-number">5.</span> <span class="toc-text"> 方法重载与方法重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85-%E7%BB%A7%E6%89%BF-%E5%A4%9A%E6%80%81"><span class="toc-number">6.</span> <span class="toc-text"> 封装、继承、多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">6.0.1.</span> <span class="toc-text"> 多态</span></a></li></ol></li></ol></li></ol>
     </div>
   </article>
   
@@ -381,7 +514,7 @@
   
   <article class="card card-content toc-card">
     <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
-<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text"> 1. 常用命令介绍</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0"><span class="toc-number">1.</span> <span class="toc-text"> 可变参数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#idea%E5%BF%AB%E6%8D%B7%E9%94%AE"><span class="toc-number">2.</span> <span class="toc-text"> idea快捷键</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text"> 包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E4%B8%89%E5%A4%A7%E4%BD%9C%E7%94%A8"><span class="toc-number">3.1.</span> <span class="toc-text"> 包的三大作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85%E7%9A%84%E5%91%BD%E5%90%8D"><span class="toc-number">3.2.</span> <span class="toc-text"> 包的命名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%8C%85"><span class="toc-number">3.3.</span> <span class="toc-text"> 常用包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">3.4.</span> <span class="toc-text"> 注意事项</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">4.</span> <span class="toc-text"> 访问修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD%E4%B8%8E%E6%96%B9%E6%B3%95%E9%87%8D%E5%86%99"><span class="toc-number">5.</span> <span class="toc-text"> 方法重载与方法重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%81%E8%A3%85-%E7%BB%A7%E6%89%BF-%E5%A4%9A%E6%80%81"><span class="toc-number">6.</span> <span class="toc-text"> 封装、继承、多态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E6%80%81"><span class="toc-number">6.0.1.</span> <span class="toc-text"> 多态</span></a></li></ol></li></ol></li></ol>
   </article>
   
   

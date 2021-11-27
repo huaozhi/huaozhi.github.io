@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html>
+<meta  lang="zh-CN" >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="#fff" id="theme-color">
+  <link rel="icon" href="/img/logo.jpg">
+  <title>我的博客</title>
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+    var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+      }
+    };
+    setDarkmode();
+  </script>
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  </script>
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  <link rel="preload" href="//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js" as="script">
+  
+  
+  <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  <link rel="prefetch" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" as="script">
+  
+  
+  
+  <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+  
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_vpj3dq9ceqa.css">
+
+  
+  
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+
+  
+  
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <div class="wrapper">
+    
+    <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+      <img class="navbar-logo-img" src="/img/logo.jpg">
+      
+      <span class="navbar-logo-dsc">我的博客</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+    <a href="/" class="navbar-menu-item">首页 </a>
+    
+    <a href="/archives" class="navbar-menu-item">归档 </a>
+    
+    <a href="/tags" class="navbar-menu-item">标签 </a>
+    
+    <a href="/categories" class="navbar-menu-item">分类 </a>
+    
+    <a href="/about" class="navbar-menu-item">关于 </a>
+    
+    <a href="/links" class="navbar-menu-item">友链 </a>
+    
+    <a class="navbar-menu-item darknavbar" id="dark"><i class="iconfont icon-weather"></i></a>
+  </div>
+</nav>
+    
+    <div class="section-wrap">
+      <div class="container">
+        <div class="columns">
+          <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      Java基础
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2021-11-27T00:17:32.000Z" style="display: flex; align-items: center;">
+      <i class="iconfont icon-calendar" style="margin-right: 2px;"></i>
+      <span>2021-11-27</span>
+    </time>
+    
+    <span class="dot"></span>
+    
+    <a href="/categories/Java/" class="post-meta-link">Java</a>
+    
+    
+    
+    <span class="dot"></span>
+    <span>1.7k 字</span>
+    
+  </div>
+  
+  <div class="post-meta post-show-meta" style="margin-top: -10px;">
+    <div style="display: flex; align-items: center;">
+      <i class="iconfont icon-biaoqian" style="margin-right: 2px; font-size: 1.15rem;"></i>
+      
+      
+        <a href="/tags/Java/" class="post-meta-link">Java</a>
+      
+    </div>
+  </div>
+  
+  </header>
+  <div id="section" class="post-content">
+    <h2 id="java特性"><a class="markdownIt-Anchor" href="#java特性"></a> Java特性</h2>
+<ol>
+<li>Java语言是面向对象的（oop）</li>
+<li>Java语言具有稳健性，其强类型机制和垃圾回收机制</li>
+<li>Java语言跨平台性</li>
+<li>Java是解释型语言</li>
+</ol>
+<h2 id="java核心机制-java虚拟机"><a class="markdownIt-Anchor" href="#java核心机制-java虚拟机"></a> Java核心机制-Java虚拟机</h2>
+<ul>
+<li>JVM是一个虚拟的计算机，具有指令集并使用不同的存储区域，负责执行指令，管理数据、内存、寄存器，包含在JDK中</li>
+<li>不同的平台有不同的虚拟机</li>
+<li>JVM机制屏蔽了底层运行平台的差异，实现了“一次编译，到处运行”</li>
+</ul>
+<h2 id="什么是jdk和jre"><a class="markdownIt-Anchor" href="#什么是jdk和jre"></a> 什么是JDK和JRE</h2>
+<p><strong>JDK</strong></p>
+<ul>
+<li>JDK 的全称(Java Development Kit Java开发工具包)<br />
+JDK = JRE + java 的开发工具 [java, javac,javadoc,javap 等]</li>
+<li>JDK 是提供给 Java 开发人员使用的，其中包含了 java 的开发工具，也包括了 JRE。所以安装了 JDK，就不用在单独<br />
+安装 JRE 了。</li>
+</ul>
+<p><strong>JRE</strong></p>
+<ul>
+<li>JRE(Java Runtime Environment Java运行环境)<br />
+JRE = JVM + Java 的核心类库[类]</li>
+<li>包括 Java 虚拟机(JVM Java Virtual Machine)和 Java 程序所需的核心类库等，如果想要运行一个开发好的 Java 程序，<br />
+计算机中只需要安装 JRE 即可。</li>
+</ul>
+<p><strong>JDK、JRE 和 JVM 的包含关系</strong></p>
+<ul>
+<li>JDK = JRE + 开发工具集（例如 Javac,java 编译工具等)</li>
+<li>JRE = JVM + Java SE 标准类库（java 核心类库）</li>
+</ul>
+<h2 id="java开发细节"><a class="markdownIt-Anchor" href="#java开发细节"></a> Java开发细节</h2>
+<ul>
+<li>
+<p>一个源文件可以有多个类，但是最多只能有一个public类</p>
+</li>
+<li>
+<p>一个源文件如果有一个public类，类名要与文件名一样</p>
+</li>
+<li>
+<p>Java应用程序的执行入口是main()方法，他有固定的格式：</p>
+<p><code>public static void main(String[] args) &#123;&#125;</code></p>
+</li>
+<li>
+<p>main()方法可以写在非public类中</p>
+</li>
+</ul>
+<h2 id="java转义字符"><a class="markdownIt-Anchor" href="#java转义字符"></a> Java转义字符</h2>
+<ul>
+<li>
+<p><code>\n</code> ：换行符</p>
+</li>
+<li>
+<p><code>\r</code>：回车符</p>
+<p><code>System.out.println(&quot;abcde\rfg&quot;);</code>输出结果是<code>fgcde</code></p>
+</li>
+<li>
+<p><code>\t</code>：一个制表位</p>
+</li>
+<li>
+<p><code>\\</code>：一个<code>\</code></p>
+</li>
+<li>
+<p><code>\'</code>：<code>'</code></p>
+</li>
+</ul>
+<h2 id="java注释comment"><a class="markdownIt-Anchor" href="#java注释comment"></a> Java注释（comment）</h2>
+<ul>
+<li>
+<p>单行注释： <code>//</code></p>
+</li>
+<li>
+<p>多行注释：<code>/* 注释内容 */</code></p>
+</li>
+<li>
+<p>文档注释：</p>
+<ul>
+<li>
+<p>注释的内容可以被JDK提供的工具<code>javadoc</code>所解析，生成一套以网页文件形式体现的该程序的文档说明一般写在类</p>
+</li>
+<li>
+<p>基本格式</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">	* <span class="hljs-doctag">@author</span> 小明 </span><br><span class="hljs-comment">	* <span class="hljs-doctag">@version</span> 1.0</span><br><span class="hljs-comment">*/</span><br></code></pre>
+</li>
+<li>
+<p>生成方式：<code>javadoc -d 目标文件夹名 -xx -yy Java文件</code></p>
+<p><code>javadoc -d d:/temp -author -version hello.java</code></p>
+</li>
+<li>
+<p>上面两个注释内容是javadoc标签</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="java代码规范"><a class="markdownIt-Anchor" href="#java代码规范"></a> Java代码规范</h2>
+<ul>
+<li>类、方法的注释，要以javadoc方式来写</li>
+<li>运算符和=习惯在两侧加空格</li>
+<li>源文件使用<code>utf-8</code>编码</li>
+<li>推荐行尾风格</li>
+</ul>
+<h2 id="dos-命令了解"><a class="markdownIt-Anchor" href="#dos-命令了解"></a> DOS 命令(了解)</h2>
+<p><strong>DOS 介绍</strong></p>
+<ul>
+<li>Dos： Disk Operating System 磁盘操作系统</li>
+</ul>
+<p><strong>常用的 dos 命令</strong></p>
+<ul>
+<li>dir 查看当前目录是有什么内容</li>
+<li>md 创建目录</li>
+<li>rm 删除目录</li>
+<li>copy 复制文件</li>
+<li>del 删除文件</li>
+<li>echo</li>
+<li>tree</li>
+<li>cd …</li>
+<li>cd /</li>
+<li>exit</li>
+<li>cls</li>
+</ul>
+<h2 id="程序中-的使用"><a class="markdownIt-Anchor" href="#程序中-的使用"></a> 程序中 + 的使用</h2>
+<ul>
+<li>当左右两边都是数值型，做加法运算</li>
+<li>当左右两边有一方是字符串，做拼接运算</li>
+<li>运算顺序：从左往右
+<ul>
+<li><code>System.out.println(3 + 5 + &quot;abc&quot;); //8abc</code></li>
+<li><code>System.out.println(&quot;abc&quot; + 3 + 5); //abc35</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="java数据类型"><a class="markdownIt-Anchor" href="#java数据类型"></a> Java数据类型</h2>
+<ul>
+<li>
+<p>基本数据类型</p>
+<ul>
+<li>
+<p>数值型</p>
+<ul>
+<li>
+<p>整数类型</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">byte</span>[<span class="hljs-number">1</span>]<br><span class="hljs-keyword">short</span>[<span class="hljs-number">2</span>]<br><span class="hljs-keyword">int</span>[<span class="hljs-number">4</span>]<br><span class="hljs-keyword">long</span>[<span class="hljs-number">8</span>]<br></code></pre>
+</li>
+<li>
+<p>浮点类型</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">float</span>[<span class="hljs-number">4</span>]<br><span class="hljs-keyword">double</span>[<span class="hljs-number">8</span>]<br></code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p>字符型</p>
+<ul>
+<li>
+<pre class="highlight"><code class="java"><span class="hljs-keyword">char</span>[<span class="hljs-number">2</span>]
+&lt;!--code￼<span class="hljs-number">3</span>--&gt;
+
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>引用数据类型</p>
+<ul>
+<li>类（class）</li>
+<li>接口（interface）</li>
+<li>数组 （[ ]）</li>
+</ul>
+</li>
+</ul>
+<p><strong>细节</strong></p>
+<ol>
+<li>
+<p>Java整型常量的类型默认为<code>int</code>，浮点常量的类型默认为<code>double</code></p>
+<p>声明long型，要在数值后加<code>l</code>或<code>L</code></p>
+<p>声明float型，要在数值后加<code>f</code>或<code>F</code></p>
+</li>
+<li>
+<p>比较大小的陷阱</p>
+<pre class="highlight"><code class="hljs java">System.out.println(<span class="hljs-number">2.7</span>); <span class="hljs-comment">// 2.7</span><br>System.out.println(<span class="hljs-number">8.1</span> / <span class="hljs-number">3</span>); <span class="hljs-comment">// 接近2.7的数</span><br><span class="hljs-comment">// 当我们对运算结果是小数的进行相等判断时，要小心</span><br>Math.abs(a - b) &lt; <span class="hljs-number">0.0000001</span><br></code></pre>
+</li>
+<li>
+<p>字符型char</p>
+<p>字符型占两个字节，可以运算，相当于一个整数，等于其对应的<code>Unicode</code>编码</p>
+</li>
+</ol>
+<p><strong>Java类的组织形式</strong></p>
+<p>JDK里面有很多包，每个包里面有很多接口、类、枚举和异常，每个类里面有字段、构造函数、成员方法。</p>
+<h2 id="编码"><a class="markdownIt-Anchor" href="#编码"></a> 编码</h2>
+<p>韩顺平笔记的第<code>77</code>页</p>
+<ul>
+<li>ASCLL码
+<ul>
+<li>一个字节，最高位0，只用到128个字符</li>
+</ul>
+</li>
+<li>Unicode码
+<ul>
+<li>两个字节，将世界上所有字符包括起来，没有乱码问题</li>
+<li>Unicode兼容ASCLL码</li>
+</ul>
+</li>
+<li>UTF-8码
+<ul>
+<li>使用最广泛，变长编码方式
+<ul>
+<li>汉字占3个字节</li>
+<li>字母占1个字节</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>gbk编码
+<ul>
+<li>一个字母一个字节</li>
+<li>一个汉字两个字节</li>
+</ul>
+</li>
+</ul>
+<h2 id="自动类型转换"><a class="markdownIt-Anchor" href="#自动类型转换"></a> 自动类型转换</h2>
+<ul>
+<li>
+<p>数据类型按精度（容量）从小到大排序为</p>
+<p><code>char</code> ==&gt; <code>int</code> ==&gt; <code>long</code> ==&gt; <code>float</code> ==&gt; <code>double</code></p>
+<p><code>byte</code> ==&gt; <code>short</code> ==&gt; <code>int</code> ==&gt; <code>long</code> ==&gt; <code>float</code> ==&gt; <code>double</code></p>
+</li>
+<li>
+<p>自动类型转换注意和细节</p>
+<ol>
+<li>有多种数据类型的数进行运算时，系统首先自动将所有数据转换成容量最大的那种数据类型，然后再进行计算</li>
+<li>当我们把容量（精度）大的数据类型赋值给容量低的数据类型时会报错，反之就会进行自动类型转换</li>
+<li>（<code>byte</code>、<code>short</code>）和 <code>char</code> 不会进行类型转换</li>
+<li><code>byte</code> 、 <code>short</code>  或<code>int</code> 能进行计算，但是会先全部转换成<code>int</code>，出现三者的一个，结果就会转换成<code>int</code></li>
+<li><code>boolean</code> 不参与自动转换</li>
+<li>给<code>byte</code>型赋值整数常量时，只要数在-128到127就行</li>
+</ol>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">byte</span> n1 = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">byte</span> n2 = <span class="hljs-number">2</span>;<br><span class="hljs-keyword">byte</span> n3 = n1 + n2; <span class="hljs-comment">// 报错，int -&gt; byte</span><br><span class="hljs-keyword">byte</span> n4 = <span class="hljs-number">128</span>; <span class="hljs-comment">// 报错，int -&gt; byte</span><br></code></pre>
+</li>
+</ul>
+<h2 id="强制类型转换"><a class="markdownIt-Anchor" href="#强制类型转换"></a> 强制类型转换</h2>
+<p><strong>细节</strong></p>
+<ol>
+<li>当数据类型从 大 --&gt; 小，就要进行强制类型转换</li>
+<li>强制类型转换符只对最近的操作数起作用，可以用<code>()</code>改变优先级</li>
+<li><code>char</code> 类型可以保存<code>int</code>常量值（未溢出2字节），但不能保存<code>int</code>变量值</li>
+<li><code>byte</code> ,<code>short</code>,<code>char</code>运算时都转换成<code>int</code></li>
+</ol>
+<h2 id="算数运算"><a class="markdownIt-Anchor" href="#算数运算"></a> 算数运算</h2>
+<pre class="highlight"><code class="hljs java">i = <span class="hljs-number">1</span>;<br>i = i ++; <span class="hljs-comment">// temp = i; i = i + 1; i = temp; 输出1</span><br>i = <span class="hljs-number">1</span>;<br>i = ++ i; <span class="hljs-comment">// i = i + 1; temp = i; i = temp; 输出2</span><br></code></pre>
+<h2 id="赋值运算"><a class="markdownIt-Anchor" href="#赋值运算"></a> 赋值运算</h2>
+<pre class="highlight"><code class="hljs java">a += b &lt;==&gt; a = a + b<span class="hljs-comment">// 复合赋值运算符会有隐含强制类型转换byte a = 1;a++; // a = (byte)(a + 1);a += 2; // a = (byte)(a + 2);</span><br></code></pre>
+<h2 id="键盘输入"><a class="markdownIt-Anchor" href="#键盘输入"></a> 键盘输入</h2>
+<p>需要用到<code>Scanner</code>类，在<code>java.util.*</code></p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> java.util.Scanner;Scanner myScanner = <span class="hljs-keyword">new</span> Scanner(System.in);System.out.println(<span class="hljs-string">&quot;请输入名字&quot;</span>);String name = myScanner.next(); <span class="hljs-comment">//接收用户输入字符串System.out.println(&quot;请输入年龄&quot;);int age = myScanner.nextInt(); //接收用户输入 intSystem.out.println(&quot;请输入薪水&quot;);double sal = myScanner.nextDouble(); //接收用户输入 double</span><br></code></pre>
+<h2 id="原码-补码-反码"><a class="markdownIt-Anchor" href="#原码-补码-反码"></a> 原码、补码、反码</h2>
+<ul>
+<li>正数三码合一</li>
+<li>负数的反码是符号位不变，各位取反；补码是反码加一</li>
+<li>0的补码和反码都是0</li>
+<li>Java没有无符号数，所有的数都是有符号的</li>
+<li>计算机运算的时候都是以补码形式运算的</li>
+</ul>
+<h2 id="位运算符"><a class="markdownIt-Anchor" href="#位运算符"></a> 位运算符</h2>
+<ul>
+<li>按位与<code>&amp;</code></li>
+<li>按位或<code>|</code></li>
+<li>按位异或<code>^</code></li>
+<li>按位取反<code>~</code></li>
+<li>算数右移<code>&gt;&gt;</code>：低位溢出，高位用符号位补</li>
+<li>算数左移<code>&lt;&lt;</code>：高位溢出，低位用0补</li>
+<li>（无符号右移）逻辑右移<code>&gt;&gt;&gt;</code>：低位溢出，高位用0补</li>
+<li>没有<code>&lt;&lt;&lt;</code></li>
+<li>位运算用补码进行</li>
+</ul>
+<h2 id="进制"><a class="markdownIt-Anchor" href="#进制"></a> 进制</h2>
+<ul>
+<li>二进制： 以<code>0b</code>或<code>0B</code>开头， 0b10010</li>
+<li>八进制： 以<code>0</code>开头 ， 010010</li>
+<li>十进制：12</li>
+<li>十六进制： 以<code>0x</code>或<code>0X</code>开头， 0XAF</li>
+</ul>
+
+  </div>
+  <div>
+  
+  </div>
+</article>
+<div class="nav">
+  
+  <div class="nav-item-prev">
+    <a href="/2021/11/27/Java面向对象/" class="nav-link">
+      <i class="iconfont icon-left nav-prev-icon"></i>
+      <div>
+        <div class="nav-label">上一篇</div>
+        
+        <div class="nav-title">Java面向对象 </div>
+        
+      </div>
+    </a>
+  </div>
+  
+  
+  <div class="nav-item-next">
+    <a href="/2021/11/08/Linux-Django-3-创建游戏界面/" class="nav-link">
+      <div>
+        <div class="nav-label">下一篇</div>
+        
+        <div class="nav-title">Linux-Django-3-创建游戏界面 </div>
+        
+      </div>
+      <i class="iconfont icon-right nav-next-icon"></i>
+    </a>
+  </div>
+  
+</div>
+
+<div class="card card-content comment-card" style="margin-top: 16px;">
+  <div class="comment-card-title">评论</div>
+  
+</div>
+
+<div class="card card-content toc-card" id="mobiletoc">
+  <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text"> Java特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6-java%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.</span> <span class="toc-text"> Java核心机制-Java虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFjdk%E5%92%8Cjre"><span class="toc-number">3.</span> <span class="toc-text"> 什么是JDK和JRE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E5%BC%80%E5%8F%91%E7%BB%86%E8%8A%82"><span class="toc-number">4.</span> <span class="toc-text"> Java开发细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-number">5.</span> <span class="toc-text"> Java转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%B3%A8%E9%87%8Acomment"><span class="toc-number">6.</span> <span class="toc-text"> Java注释（comment）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="toc-number">7.</span> <span class="toc-text"> Java代码规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dos-%E5%91%BD%E4%BB%A4%E4%BA%86%E8%A7%A3"><span class="toc-number">8.</span> <span class="toc-text"> DOS 命令(了解)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">9.</span> <span class="toc-text"> 程序中 + 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">10.</span> <span class="toc-text"> Java数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81"><span class="toc-number">11.</span> <span class="toc-text"> 编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">12.</span> <span class="toc-text"> 自动类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">13.</span> <span class="toc-text"> 强制类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">14.</span> <span class="toc-text"> 算数运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97"><span class="toc-number">15.</span> <span class="toc-text"> 赋值运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5"><span class="toc-number">16.</span> <span class="toc-text"> 键盘输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81-%E8%A1%A5%E7%A0%81-%E5%8F%8D%E7%A0%81"><span class="toc-number">17.</span> <span class="toc-text"> 原码、补码、反码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">18.</span> <span class="toc-text"> 位运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6"><span class="toc-number">19.</span> <span class="toc-text"> 进制</span></a></li></ol>
+</div></main>
+          <aside class="left-column">
+            
+            <div class="card card-author">
+              
+<img src="/img/head_img.jpg" class="author-img">
+
+<p class="author-name">胡澳治</p>
+<p class="author-description">19级本科生，热爱篮球</p>
+<div class="author-message">
+  <a class="author-posts-count" href="/archives">
+    <span>27</span>
+    <span>文章</span>
+  </a>
+  <a class="author-categories-count" href="/categories">
+    <span>8</span>
+    <span>分类</span>
+  </a>
+  <a class="author-tags-count" href="/tags">
+    <span>12</span>
+    <span>标签</span>
+  </a>
+</div>
+
+<div class="author-card-society">
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://github.com/huaozhi">
+        <i class="iconfont icon-github society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://raw.githubusercontent.com/huaozhi/huaozhi.github.io/main/img/%E5%BE%AE%E4%BF%A1%E5%8F%B7.png">
+        <i class="iconfont icon-wechat society-icon"></i>
+      </a>
+    </div>
+  
+    <div class="author-card-society-icon">
+      <a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45911345?spm=1010.2135.3001.5343">
+        <i class="iconfont /source/img/csdn.png society-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+            </div>
+            
+            <div class="sticky-tablet">
+  
+  
+  <article class="display-when-two-columns spacer">
+    <div class="card card-content toc-card">
+      <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text"> Java特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6-java%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.</span> <span class="toc-text"> Java核心机制-Java虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFjdk%E5%92%8Cjre"><span class="toc-number">3.</span> <span class="toc-text"> 什么是JDK和JRE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E5%BC%80%E5%8F%91%E7%BB%86%E8%8A%82"><span class="toc-number">4.</span> <span class="toc-text"> Java开发细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-number">5.</span> <span class="toc-text"> Java转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%B3%A8%E9%87%8Acomment"><span class="toc-number">6.</span> <span class="toc-text"> Java注释（comment）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="toc-number">7.</span> <span class="toc-text"> Java代码规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dos-%E5%91%BD%E4%BB%A4%E4%BA%86%E8%A7%A3"><span class="toc-number">8.</span> <span class="toc-text"> DOS 命令(了解)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">9.</span> <span class="toc-text"> 程序中 + 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">10.</span> <span class="toc-text"> Java数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81"><span class="toc-number">11.</span> <span class="toc-text"> 编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">12.</span> <span class="toc-text"> 自动类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">13.</span> <span class="toc-text"> 强制类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">14.</span> <span class="toc-text"> 算数运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97"><span class="toc-number">15.</span> <span class="toc-text"> 赋值运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5"><span class="toc-number">16.</span> <span class="toc-text"> 键盘输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81-%E8%A1%A5%E7%A0%81-%E5%8F%8D%E7%A0%81"><span class="toc-number">17.</span> <span class="toc-text"> 原码、补码、反码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">18.</span> <span class="toc-text"> 位运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6"><span class="toc-number">19.</span> <span class="toc-text"> 进制</span></a></li></ol>
+    </div>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="categories-card">
+  <div class="categories-header"><i class="iconfont icon-fenlei" style="padding-right: 2px;"></i>分类</div>
+  <div class="categories-list">
+    
+      <a href="/categories/数据结构">
+        <div class="categories-list-item">
+          数据结构
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/数学问题">
+        <div class="categories-list-item">
+          数学问题
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/PAT甲级">
+        <div class="categories-list-item">
+          PAT甲级
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/力扣">
+        <div class="categories-list-item">
+          力扣
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Linux基础课">
+        <div class="categories-list-item">
+          Linux基础课
+          <span class="categories-list-item-badge">8</span>
+        </div>
+      </a>
+    
+      <a href="/categories/git">
+        <div class="categories-list-item">
+          git
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Django框架课">
+        <div class="categories-list-item">
+          Django框架课
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/Java">
+        <div class="categories-list-item">
+          Java
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content">
+    <div class="tags-card">
+  <div class="tags-header"><i class="iconfont icon-biaoqian" style="padding-right: 2px;"></i>热门标签</div>
+  <div class="tags-list">
+    
+    <a href="\tags\并查集" title="并查集"><div class="tags-list-item">并查集</div></a>
+    
+    <a href="\tags\最大公约数" title="最大公约数"><div class="tags-list-item">最大公约数</div></a>
+    
+    <a href="\tags\素数判断" title="素数判断"><div class="tags-list-item">素数判断</div></a>
+    
+    <a href="\tags\质因数分解" title="质因数分解"><div class="tags-list-item">质因数分解</div></a>
+    
+    <a href="\tags\大顶堆" title="大顶堆"><div class="tags-list-item">大顶堆</div></a>
+    
+    <a href="\tags\树的遍历" title="树的遍历"><div class="tags-list-item">树的遍历</div></a>
+    
+    <a href="\tags\数学问题" title="数学问题"><div class="tags-list-item">数学问题</div></a>
+    
+    <a href="\tags\动态规划" title="动态规划"><div class="tags-list-item">动态规划</div></a>
+    
+    <a href="\tags\AVL树" title="AVL树"><div class="tags-list-item">AVL树</div></a>
+    
+    <a href="\tags\最短路径" title="最短路径"><div class="tags-list-item">最短路径</div></a>
+    
+    <a href="\tags\AcWing课程" title="AcWing课程"><div class="tags-list-item">AcWing课程</div></a>
+    
+    <a href="\tags\Java" title="Java"><div class="tags-list-item">Java</div></a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+          <aside class="right-column">
+            <div class="sticky-widescreen">
+  
+  
+  <article class="card card-content toc-card">
+    <div class="toc-header"><i class="iconfont icon-menu" style="padding-right: 2px;"></i>目录</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E7%89%B9%E6%80%A7"><span class="toc-number">1.</span> <span class="toc-text"> Java特性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%A0%B8%E5%BF%83%E6%9C%BA%E5%88%B6-java%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.</span> <span class="toc-text"> Java核心机制-Java虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFjdk%E5%92%8Cjre"><span class="toc-number">3.</span> <span class="toc-text"> 什么是JDK和JRE</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E5%BC%80%E5%8F%91%E7%BB%86%E8%8A%82"><span class="toc-number">4.</span> <span class="toc-text"> Java开发细节</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E8%BD%AC%E4%B9%89%E5%AD%97%E7%AC%A6"><span class="toc-number">5.</span> <span class="toc-text"> Java转义字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%B3%A8%E9%87%8Acomment"><span class="toc-number">6.</span> <span class="toc-text"> Java注释（comment）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83"><span class="toc-number">7.</span> <span class="toc-text"> Java代码规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dos-%E5%91%BD%E4%BB%A4%E4%BA%86%E8%A7%A3"><span class="toc-number">8.</span> <span class="toc-text"> DOS 命令(了解)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%B8%AD-%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">9.</span> <span class="toc-text"> 程序中 + 的使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">10.</span> <span class="toc-text"> Java数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E7%A0%81"><span class="toc-number">11.</span> <span class="toc-text"> 编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">12.</span> <span class="toc-text"> 自动类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%BA%E5%88%B6%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">13.</span> <span class="toc-text"> 强制类型转换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%95%B0%E8%BF%90%E7%AE%97"><span class="toc-number">14.</span> <span class="toc-text"> 算数运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97"><span class="toc-number">15.</span> <span class="toc-text"> 赋值运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5"><span class="toc-number">16.</span> <span class="toc-text"> 键盘输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81-%E8%A1%A5%E7%A0%81-%E5%8F%8D%E7%A0%81"><span class="toc-number">17.</span> <span class="toc-text"> 原码、补码、反码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">18.</span> <span class="toc-text"> 位运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E5%88%B6"><span class="toc-number">19.</span> <span class="toc-text"> 进制</span></a></li></ol>
+  </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header"><i class="iconfont icon-wenzhang_huaban" style="padding-right: 2px;"></i>最近文章</div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-11-27</div>
+        <a href="/2021/11/27/Java面向对象/"><div class="recent-posts-item-content">Java面向对象</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-11-27</div>
+        <a href="/2021/11/27/Java基础/"><div class="recent-posts-item-content">Java基础</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-11-08</div>
+        <a href="/2021/11/08/Linux-Django-3-创建游戏界面/"><div class="recent-posts-item-content">Linux-Django-3-创建游戏界面</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2021-11-04</div>
+        <a href="/2021/11/04/Linux-Django-2-创建菜单界面/"><div class="recent-posts-item-content">Linux-Django-2-创建菜单界面</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>Copyright ©
+          
+          2020 -
+          
+          2021
+        </span>
+        <a href="/" class="footer-link">我的博客 </a>
+      </div>
+    </div>
+
+    
+    <div class="footer-dsc">
+      
+      
+      Powered by
+      <a href="https://hexo.io/" class="footer-link" target="_blank" rel="nofollow noopener noreferrer">&nbsp;Hexo </a>
+      
+      
+      
+      
+    </div>
+    
+    
+    
+    
+      <div class="footer-dsc">
+        
+        本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+        
+        <span>&nbsp;|&nbsp;</span>
+        
+        
+        本站总访客数<span id="busuanzi_value_site_uv"></span>次
+        
+      </div>
+      
+    
+</footer>
+  <a role="button" id="scrollbutton" class="basebutton" >
+  <i class="iconfont icon-arrowleft button-icon"></i>
+</a>
+<a role="button" id="menubutton" class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a role="button" id="popbutton" class="basebutton">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a role="button" id="darkbutton" class="basebutton darkwidget">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+
+  
+  
+  
+
+  
+  
+    
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css">
+
+  
+
+  
+  
+  <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img');
+    var i;
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a');
+      wrapper.setAttribute('data-fslightbox', 'gallery');
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'));
+      wrapper.setAttribute('style', 'width: 100%; display: flex; justify-content: center;');
+      img[i].parentElement.insertBefore(wrapper, img[i]);
+      wrapper.appendChild(img[i]);
+    }
+    refreshFsLightbox();
+  }
+</script>
+<script>loadScript("//cdn.jsdelivr.net/npm/fslightbox@3.1.0/index.min.js", addImgLayout)</script>
+  
+  
+  
+<script src="/js/main.js"></script>
+
+  
+  <script>loadScript("/js/lib/busuanzi.min.js")</script>
+  
+  
+  <script>
+    var addLazyload = function () {
+      var observer = lozad('.lozad', {
+        load: function (el) {
+          el.srcset = el.getAttribute('data-src');
+        },
+        loaded: function (el) {
+          el.classList.add('loaded');
+        }
+      });
+      observer.observe();
+    }
+  </script>
+  <script>loadScript("/js/lib/lozad.min.js", addLazyload)</script>
+  
+  
+</body>
+
+</html>
